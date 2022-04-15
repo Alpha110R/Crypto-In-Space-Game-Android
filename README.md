@@ -19,4 +19,4 @@ Start position:
 
 After disqualification:
 
-![image](https://user-images.githubusercontent.com/68230416/163547147-89451842-3222-4cf1-9faf-44411cee649f.png)
+![image](https://user-images.githubusercontent.com/68230416/163565294-1951e674-6ff2-46b9-99ad-eeae5c65a704.png)
