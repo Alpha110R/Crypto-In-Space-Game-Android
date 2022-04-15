@@ -1,6 +1,5 @@
 package com.example.hunter_game;
-
-import android.util.Log;
+import java.util.Locale;
 import java.util.Random;
 
 public class GameManager {
@@ -14,11 +13,11 @@ public class GameManager {
     public GameManager(){}
 
     public GameManager (int rows, int columns){
-        this.deer = new Deer().setCordinateX(columns/2).setCordinateY(rows-1).setDirection(Directions.UP);
-        this.hunter = new Hunter().setCordinateX(columns/2).setCordinateY(0);
+        this.deer = new Deer().setCordinateX(columns/2).setCordinateY(rows-1).setDirection(Directions.UP);//Start position
+        this.hunter = new Hunter().setCordinateX(columns/2).setCordinateY(0);//Start position
         this.rows=rows;
         this.columns=columns;
-    };
+    }
 
     public int getScore() {
         return score;
@@ -44,6 +43,27 @@ public class GameManager {
 
     public void reduceLives() { lives--; }
 
+    public void changeDeerDirection(Directions direction){
+        deer.setDirection(direction);
+    }
+
+    public void move(){//Responsible to check if the move is valid and to move the objects -> setPosition
+        if(checkBounderies(deer.getCordinateX(), deer.getCordinateY(),deer.getDirection())){
+            moveIndexByDirection(deer, deer.getCordinateX(),deer.getCordinateY(),deer.getDirection());
+        }
+        int random = new Random().nextInt((4));//Random for the hunter movements
+        hunter.setDirection(Directions.values()[random]);
+        if(checkBounderies(hunter.getCordinateX(), hunter.getCordinateY(),hunter.getDirection())) {
+            moveIndexByDirection(hunter, hunter.getCordinateX(), hunter.getCordinateY(), hunter.getDirection());
+        }
+        else{
+            if(hunter.getCordinateY() == (rows-1) && hunter.getDirection() == Directions.DOWN) {
+                hunter.setCordinateY(0);
+                hunter.setCordinateX(columns / 2);
+            }
+        }
+    }
+
     public boolean checkBounderies(int x, int y, Directions direction){
         switch (direction){
             case UP:
@@ -66,8 +86,11 @@ public class GameManager {
         return true;
     }
 
-    public void changeDeerDirection(Directions direction){
-        deer.setDirection(direction);
+    public void moveIndexByDirection(Object obj, int x, int y, Directions direction){
+        if(obj instanceof Deer)
+            moveIndexByDirectionDeer(x,y,direction);
+        else
+            moveIndexByDirectionHunter(x,y,direction);
     }
 
     public void moveIndexByDirectionDeer(int x, int y, Directions direction){
@@ -87,7 +110,7 @@ public class GameManager {
         }
     }
 
-    public void moveIndexByDirectionHunter(int x, int y, Directions direction, Object obj){
+    public void moveIndexByDirectionHunter(int x, int y, Directions direction){
         switch (direction){
             case UP:
                 hunter.setCordinateY(--y);
@@ -104,23 +127,6 @@ public class GameManager {
         }
     }
 
-    public void move(){
-        if(checkBounderies(deer.getCordinateX(), deer.getCordinateY(),deer.getDirection())){
-            moveIndexByDirectionDeer(deer.getCordinateX(),deer.getCordinateY(),deer.getDirection());
-        }
-        int random = new Random().nextInt((4));
-        hunter.setDirection(Directions.values()[random]);
-        if(checkBounderies(hunter.getCordinateX(), hunter.getCordinateY(),hunter.getDirection())) {
-            moveIndexByDirectionHunter(hunter.getCordinateX(), hunter.getCordinateY(), hunter.getDirection(), hunter);
-        }
-        else{
-            if(hunter.getCordinateY() == (rows-1) && hunter.getDirection() == Directions.DOWN) {
-            hunter.setCordinateY(0);
-            hunter.setCordinateX(columns / 2);
-            }
-        }
-    }
-
     public boolean checkCollision(){
         return deer.getCordinateX() == hunter.getCordinateX() && deer.getCordinateY() == hunter.getCordinateY();
     }
@@ -128,15 +134,5 @@ public class GameManager {
     public void restartGamePositions(){
         deer.setCordinateX(columns/2).setCordinateY(rows-1).setDirection(Directions.UP);
         hunter.setCordinateX(columns/2).setCordinateY(0).setDirection(Directions.DOWN);
-    }
-
-    public String stringAdapter(Directions direction){
-        switch (direction){
-            case UP: return "up";
-            case RIGHT: return "right";
-            case DOWN: return "down";
-            case LEFT: return "left";
-        }
-        return "";
     }
 }

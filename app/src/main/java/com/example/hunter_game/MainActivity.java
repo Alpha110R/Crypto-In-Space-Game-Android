@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
+
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -29,7 +31,8 @@ public class MainActivity extends AppCompatActivity {
                            main_BTN_leftArrow;
     private TimerStatus timerStatus = TimerStatus.OFF;
     private ImageView [][] matrix;
-    private boolean newGameFlag = true;
+    private boolean newGameFlag = true;//Import flag to sign if this round of the timer it is a new game or not.
+                                        //If it is a new game, I don't want to move at the first second and wait with the score
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,8 +69,9 @@ public class MainActivity extends AppCompatActivity {
         //rowsInGrid = new LinearLayout[rows];
     }
 
+    //Nice and easy way to get Resource of any image i want
     public int getResourceToImage(String nameOfImage, Directions direction){
-        String imageName = "ic_" + nameOfImage + "_" + gameManager.stringAdapter(direction);
+        String imageName = "ic_" + nameOfImage + "_" + direction.name().toLowerCase(Locale.ROOT);
         return this.getResources().getIdentifier(imageName, "drawable", this.getPackageName());
     }
 
@@ -101,8 +105,8 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "LOSER", Toast.LENGTH_LONG).show();
                 finish();
             }else {
-                newGameFlag = true;
-                clearIndexInMatrix();
+                newGameFlag = true;//There was collision
+                clearIndexInMatrix();//Needs to clean before I set the positions
                 gameManager.restartGamePositions();
                 gameManager.reduceLives();
                 gameManager.restartScore();
