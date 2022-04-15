@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
                 gameManager.restartScore();
                 main_LBL_score.setText("" + gameManager.getScore());
                 updateUINewGame();
-                Toast.makeText(this, "You have only " + gameManager.getLives() + " times to play", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "You only have " + gameManager.getLives() + " more times to play", Toast.LENGTH_LONG).show();
             }
         }else{
             clearIndexInMatrix();
