@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".activities.GameActivity"
     android:background="#6ED371">
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -106,6 +106,30 @@
                 android:layout_width="3dp"
                 android:layout_height="match_parent"
                 android:background="@android:color/white"/>
+            <ImageView
+                android:id="@+id/main_IMG_row0col3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#89E68D"
+                android:src="@drawable/ic_deer"
+                android:visibility="invisible"/>
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"/>
+            <ImageView
+                android:id="@+id/main_IMG_row0col4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#89E68D"
+                android:src="@drawable/ic_deer"
+                android:visibility="invisible"/>
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"/>
 
         </LinearLayout>
         <View
@@ -147,6 +171,30 @@
                 android:background="@android:color/white"/>
             <ImageView
                 android:id="@+id/main_IMG_row1col2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#4C8C4F"
+                android:src="@drawable/ic_deer"
+                android:visibility="invisible"/>
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"/>
+            <ImageView
+                android:id="@+id/main_IMG_row1col3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#4C8C4F"
+                android:src="@drawable/ic_deer"
+                android:visibility="invisible"/>
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"/>
+            <ImageView
+                android:id="@+id/main_IMG_row1col4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -207,6 +255,30 @@
                 android:layout_width="3dp"
                 android:layout_height="match_parent"
                 android:background="@android:color/white"/>
+            <ImageView
+                android:id="@+id/main_IMG_row2col3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#89E68D"
+                android:src="@drawable/ic_deer"
+                android:visibility="invisible"/>
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"/>
+            <ImageView
+                android:id="@+id/main_IMG_row2col4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#89E68D"
+                android:src="@drawable/ic_deer"
+                android:visibility="invisible"/>
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"/>
         </LinearLayout>
         <View
             android:layout_width="match_parent"
@@ -257,6 +329,30 @@
                 android:layout_width="3dp"
                 android:layout_height="match_parent"
                 android:background="@android:color/white"/>
+            <ImageView
+                android:id="@+id/main_IMG_row3col3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#4C8C4F"
+                android:src="@drawable/ic_deer"
+                android:visibility="invisible"/>
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"/>
+            <ImageView
+                android:id="@+id/main_IMG_row3col4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#4C8C4F"
+                android:src="@drawable/ic_deer"
+                android:visibility="invisible"/>
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"/>
         </LinearLayout>
         <View
             android:layout_width="match_parent"
@@ -297,6 +393,178 @@
                 android:background="@android:color/white"/>
             <ImageView
                 android:id="@+id/main_IMG_row4col2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#89E68D"
+                android:src="@drawable/ic_deer"
+                android:visibility="invisible"/>
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"/>
+            <ImageView
+                android:id="@+id/main_IMG_row4col3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#89E68D"
+                android:src="@drawable/ic_deer"
+                android:visibility="invisible"/>
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"/>
+            <ImageView
+                android:id="@+id/main_IMG_row4col4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#89E68D"
+                android:src="@drawable/ic_deer"
+                android:visibility="invisible"/>
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"/>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@android:color/white"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"/>
+            <ImageView
+                android:id="@+id/main_IMG_row5col0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#89E68D"
+                android:src="@drawable/ic_deer"
+                android:visibility="invisible"/>
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"/>
+            <ImageView
+                android:id="@+id/main_IMG_row5col1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#4C8C4F"
+                android:src="@drawable/ic_deer"
+                android:visibility="invisible"/>
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"/>
+            <ImageView
+                android:id="@+id/main_IMG_row5col2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#89E68D"
+                android:src="@drawable/ic_deer"
+                android:visibility="invisible"/>
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"/>
+            <ImageView
+                android:id="@+id/main_IMG_row5col3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#89E68D"
+                android:src="@drawable/ic_deer"
+                android:visibility="invisible"/>
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"/>
+            <ImageView
+                android:id="@+id/main_IMG_row5col4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#89E68D"
+                android:src="@drawable/ic_deer"
+                android:visibility="invisible"/>
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"/>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@android:color/white"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"/>
+            <ImageView
+                android:id="@+id/main_IMG_row6col0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#89E68D"
+                android:src="@drawable/ic_deer"
+                android:visibility="invisible"/>
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"/>
+            <ImageView
+                android:id="@+id/main_IMG_row6col1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#4C8C4F"
+                android:src="@drawable/ic_deer"
+                android:visibility="invisible"/>
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"/>
+            <ImageView
+                android:id="@+id/main_IMG_row6col2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#89E68D"
+                android:src="@drawable/ic_deer"
+                android:visibility="invisible"/>
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"/>
+            <ImageView
+                android:id="@+id/main_IMG_row6col3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#89E68D"
+                android:src="@drawable/ic_deer"
+                android:visibility="invisible"/>
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"/>
+            <ImageView
+                android:id="@+id/main_IMG_row6col4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
