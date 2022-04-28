@@ -1,6 +1,7 @@
 package com.example.hunter_game.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,7 +17,7 @@ import com.example.hunter_game.objects.enums.TimerStatus;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 
-public class GameButtonsActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity {
     private final int rows = 7;
     private final int columns = 5;
     private ImageView[] game_IMG_hearts;
@@ -32,25 +33,38 @@ public class GameButtonsActivity extends AppCompatActivity {
     private ImageView [][] matrix;
     private boolean newGameFlag = true;//Import flag to sign if this round of the timer is a new game or not.
     //If it is a new game, I don't want to move at the first second and wait with the score
+    private Intent intent;
+    private Bundle bundle;
+    private String screenType;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //setContentView(R.layout.activity_gamebuttons);
-        setContentView(R.layout.activity_gamesensors);
+        setContentView(R.layout.activity_gamebuttons);
         findViews();
-        /*main_BTN_upArrow.setOnClickListener(view -> gameManager.changeDeerDirection(Directions.UP));
-        main_BTN_rightArrow.setOnClickListener(view -> gameManager.changeDeerDirection(Directions.RIGHT));
-        main_BTN_downArrow.setOnClickListener(view -> gameManager.changeDeerDirection(Directions.DOWN));
-        main_BTN_leftArrow.setOnClickListener(view -> gameManager.changeDeerDirection(Directions.LEFT));
-        */gameTimer = new GameTimer(callBack_Timer);
+        intent = getIntent();
+        bundle = intent.getBundleExtra(MainActivity.BUNDLE);
+        screenType = bundle.getString(MainActivity.GAME_SCREEN);
+        if(screenType.equals(MainActivity.SENSORS)){
+            main_BTN_upArrow.setVisibility(View.INVISIBLE);
+            main_BTN_rightArrow.setVisibility(View.INVISIBLE);
+            main_BTN_downArrow.setVisibility(View.INVISIBLE);
+            main_BTN_leftArrow.setVisibility(View.INVISIBLE);
+            //TODO:listen to sensors
+        }
+        else {
+            main_BTN_upArrow.setOnClickListener(view -> gameManager.changeDeerDirection(Directions.UP));
+            main_BTN_rightArrow.setOnClickListener(view -> gameManager.changeDeerDirection(Directions.RIGHT));
+            main_BTN_downArrow.setOnClickListener(view -> gameManager.changeDeerDirection(Directions.DOWN));
+            main_BTN_leftArrow.setOnClickListener(view -> gameManager.changeDeerDirection(Directions.LEFT));
+        }
+
+        gameTimer = new GameTimer(callBack_Timer);
         gameTimer.start();
 
         gameUiUpdate = new GameUiUpdate(this, matrix, main_LBL_score, game_IMG_hearts);
         gameManager = new GameManager(rows, columns, this);
-        //main_BTN_leftArrow.setVisibility(View.INVISIBLE);
     }
     private CallBack_Timer callBack_Timer = new CallBack_Timer() {
         @Override

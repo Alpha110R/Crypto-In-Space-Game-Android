@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.GameButtonsActivity"
+    tools:context=".activities.GameActivity"
     android:background="#6ED371">
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -581,7 +581,6 @@
             android:layout_height="3dp"
             android:background="@android:color/white"/>
     </LinearLayout>
-
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/main_LNL_directions"
