@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.hunter_game.CallBack_Timer;
@@ -17,7 +16,7 @@ import com.example.hunter_game.objects.enums.TimerStatus;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 
-public class GameActivity extends AppCompatActivity {
+public class GameButtonsActivity extends AppCompatActivity {
     private final int rows = 7;
     private final int columns = 5;
     private ImageView[] game_IMG_hearts;
@@ -38,17 +37,20 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+        //setContentView(R.layout.activity_gamebuttons);
+        setContentView(R.layout.activity_gamesensors);
         findViews();
-        main_BTN_upArrow.setOnClickListener(view -> gameManager.changeDeerDirection(Directions.UP));
+        /*main_BTN_upArrow.setOnClickListener(view -> gameManager.changeDeerDirection(Directions.UP));
         main_BTN_rightArrow.setOnClickListener(view -> gameManager.changeDeerDirection(Directions.RIGHT));
         main_BTN_downArrow.setOnClickListener(view -> gameManager.changeDeerDirection(Directions.DOWN));
         main_BTN_leftArrow.setOnClickListener(view -> gameManager.changeDeerDirection(Directions.LEFT));
-        gameTimer = new GameTimer(callBack_Timer);
+        */gameTimer = new GameTimer(callBack_Timer);
         gameTimer.start();
 
         gameUiUpdate = new GameUiUpdate(this, matrix, main_LBL_score, game_IMG_hearts);
         gameManager = new GameManager(rows, columns, this);
+        //main_BTN_leftArrow.setVisibility(View.INVISIBLE);
     }
     private CallBack_Timer callBack_Timer = new CallBack_Timer() {
         @Override
