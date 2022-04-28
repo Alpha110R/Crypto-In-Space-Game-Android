@@ -7,9 +7,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.hunter_game.CallBack_MotionSensor;
 import com.example.hunter_game.CallBack_Timer;
 import com.example.hunter_game.R;
 import com.example.hunter_game.objects.GameManager;
+import com.example.hunter_game.objects.GameMoveSensor;
 import com.example.hunter_game.objects.GameTimer;
 import com.example.hunter_game.objects.GameUiUpdate;
 import com.example.hunter_game.objects.enums.Directions;
@@ -36,8 +38,11 @@ public class GameActivity extends AppCompatActivity {
     private Intent intent;
     private Bundle bundle;
     private String screenType;
+    //TODO: Continue to create TT class -> 2 Fragments + connect it to end game and menu + Memory + Maps
+    //TODO: Think about the architecture of the classes
 
-
+    //TODO: In sensor mode, after lose the sensors don't respond (check how the activities close)
+    //TODO: Split this class
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +56,7 @@ public class GameActivity extends AppCompatActivity {
             main_BTN_rightArrow.setVisibility(View.INVISIBLE);
             main_BTN_downArrow.setVisibility(View.INVISIBLE);
             main_BTN_leftArrow.setVisibility(View.INVISIBLE);
-            //TODO:listen to sensors
+            GameMoveSensor.initHelper(this, callBack_motionSensor);
         }
         else {
             main_BTN_upArrow.setOnClickListener(view -> gameManager.changeDeerDirection(Directions.UP));
@@ -75,6 +80,27 @@ public class GameActivity extends AppCompatActivity {
         @Override
         public void coinJump() {
             moveCoinGameManager();
+        }
+    };
+    private CallBack_MotionSensor callBack_motionSensor = new CallBack_MotionSensor() {
+        @Override
+        public void right() {
+            gameManager.changeDeerDirection(Directions.RIGHT);
+        }
+
+        @Override
+        public void left() {
+            gameManager.changeDeerDirection(Directions.LEFT);
+        }
+
+        @Override
+        public void up() {
+            gameManager.changeDeerDirection(Directions.UP);
+        }
+
+        @Override
+        public void down() {
+            gameManager.changeDeerDirection(Directions.DOWN);
         }
     };
 
@@ -172,4 +198,14 @@ public class GameActivity extends AppCompatActivity {
         newGameFlag = false;
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //GameMoveSensor.getMe().onResumeSensorManager();
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //GameMoveSensor.getMe().onPauseSensorManager();
+    }
 }
