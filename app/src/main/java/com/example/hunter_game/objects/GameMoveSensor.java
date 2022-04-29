@@ -7,7 +7,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.util.Log;
 
-import com.example.hunter_game.CallBack_MotionSensor;
+import com.example.hunter_game.CallBacks.CallBack_MotionSensor;
 
 public class GameMoveSensor{
     private SensorManager sensorManager;
@@ -27,7 +27,7 @@ public class GameMoveSensor{
         sensorManager = (SensorManager) gameContext.getSystemService(gameContext.SENSOR_SERVICE);
         motionSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sensorManager.registerListener(motionSensorEventListener, motionSensor, SensorManager.SENSOR_DELAY_NORMAL);
-//TODO: try to activate and deactivate the sensor listener
+
     }
 
     public static void initHelper(Context context, CallBack_MotionSensor callBack_motionSensor) {
@@ -71,7 +71,7 @@ public class GameMoveSensor{
             Log.d("", "onAccuracyChanged");
         }
     };
-
+    //TODO: try to activate and deactivate the sensor listener
     public void onResumeSensorManager() {
         sensorManager.registerListener(motionSensorEventListener, motionSensor, SensorManager.SENSOR_DELAY_NORMAL);
     }

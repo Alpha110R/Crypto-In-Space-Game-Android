@@ -1,7 +1,7 @@
 package com.example.hunter_game.objects;
 import android.os.Handler;
 
-import com.example.hunter_game.CallBack_Timer;
+import com.example.hunter_game.CallBacks.CallBack_Timer;
 
 
 public class GameTimer {
@@ -16,13 +16,8 @@ public class GameTimer {
         this.callBack_timer = callBack_timer;
     }
 
-    public void setCallBack_timer(CallBack_Timer callBack_timer) {
-        this.callBack_timer = callBack_timer;
-    }
-
     public void start() {
         final Handler handler = new Handler();
-        final int delay = 1000;
 
         handler.postDelayed(new Runnable() {
             public void run() {
@@ -35,8 +30,8 @@ public class GameTimer {
                 if (callBack_timer != null) {
                     callBack_timer.gameTimer();
                 }
-                handler.postDelayed(this, delay);
+                handler.postDelayed(this, DELAY);
             }
-        }, delay);
+        }, DELAY);
     }
 }

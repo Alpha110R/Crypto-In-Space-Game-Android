@@ -7,8 +7,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.hunter_game.CallBack_MotionSensor;
-import com.example.hunter_game.CallBack_Timer;
+import com.bumptech.glide.Glide;
+import com.example.hunter_game.CallBacks.CallBack_MotionSensor;
+import com.example.hunter_game.CallBacks.CallBack_Timer;
 import com.example.hunter_game.R;
 import com.example.hunter_game.objects.GameManager;
 import com.example.hunter_game.objects.GameMoveSensor;
@@ -20,9 +21,13 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 
 public class GameActivity extends AppCompatActivity {
+    //private static final String LINK_BACKGROUND="https://images.pexels.com/photos/1723637/pexels-photo-1723637.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+    private static final String LINK_BACKGROUND="https://images.pexels.com/photos/10257142/pexels-photo-10257142.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+
     private final int rows = 7;
     private final int columns = 5;
     private ImageView[] game_IMG_hearts;
+    private ImageView game_IMG_backGround;
     private GameManager gameManager;
     private GameUiUpdate gameUiUpdate;
     private GameTimer gameTimer;
@@ -123,6 +128,11 @@ public class GameActivity extends AppCompatActivity {
         main_BTN_rightArrow = findViewById(R.id.main_BTN_rightArrow);
         main_BTN_downArrow = findViewById(R.id.main_BTN_downArrow);
         main_BTN_leftArrow = findViewById(R.id.main_BTN_leftArrow);
+        game_IMG_backGround = findViewById(R.id.game_IMG_backGround);
+        Glide
+                .with(this)
+                .load(LINK_BACKGROUND)
+                .into(game_IMG_backGround);
     }
 
     public void setScoreText(int score){

@@ -1,4 +1,4 @@
-package com.example.hunter_game;
+package com.example.hunter_game.CallBacks;
 
 public interface CallBack_MotionSensor {
     void right();
