@@ -18,9 +18,6 @@ public class GameMoveSensor{
 
     public GameMoveSensor(){}
 
-    public SensorManager getSensorManager(){
-        return sensorManager;
-    }
     private GameMoveSensor(Context context, CallBack_MotionSensor callBack_motionSensor) {
         this.gameContext = context;
         this.callBack_motionSensor = callBack_motionSensor;
@@ -39,6 +36,10 @@ public class GameMoveSensor{
     public static GameMoveSensor getMe() {
         return me;
     }
+    public SensorManager getSensorManager(){
+        return sensorManager;
+    }
+
 
     private SensorEventListener motionSensorEventListener = new SensorEventListener() {
         @Override
@@ -51,13 +52,13 @@ public class GameMoveSensor{
                 if (x > 1) {
                     callBack_motionSensor.left();
                 } else {
-                    if (x < 0) {
+                    if (x < -1) {
                         callBack_motionSensor.right();
                     } else {
-                        if (z > 1) {
+                        if (z > 7) {
                             callBack_motionSensor.up();
                         }
-                        if (z < -1) {
+                        if (z < 4) {
                             callBack_motionSensor.down();
                         }
                     }

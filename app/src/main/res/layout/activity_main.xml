@@ -62,7 +62,7 @@
             android:orientation="vertical"
             android:gravity="center"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="20dp">
+            android:layout_marginBottom="50dp">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/main_BTN_play"

@@ -34,10 +34,11 @@ public class MySharedPreferences {
     }
 
 
-
     public void removeKey(String key){
         prefs.edit().remove(key).apply();
     }
+
+    public boolean contain(String key) { return prefs.contains(key);}
 
 
     //INT
@@ -68,8 +69,8 @@ public class MySharedPreferences {
     }
 
     //STRING
-    public void putString(String key, String defValue) {
-        prefs.edit().putString(key, defValue);
+    public void putString(String key, String value) {
+        prefs.edit().putString(key, value).apply();
     }
 
     public String getString(String key, String defValue) {

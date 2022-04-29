@@ -16,13 +16,13 @@ import com.example.hunter_game.objects.GameMoveSensor;
 import com.example.hunter_game.objects.GameTimer;
 import com.example.hunter_game.objects.GameUiUpdate;
 import com.example.hunter_game.objects.enums.Directions;
+import com.example.hunter_game.objects.enums.KeysToSaveEnums;
 import com.example.hunter_game.objects.enums.TimerStatus;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 
 public class GameActivity extends AppCompatActivity {
     //private static final String LINK_BACKGROUND="https://images.pexels.com/photos/1723637/pexels-photo-1723637.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
-    private static final String LINK_BACKGROUND="https://images.pexels.com/photos/10257142/pexels-photo-10257142.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
 
     private final int rows = 7;
     private final int columns = 5;
@@ -43,6 +43,7 @@ public class GameActivity extends AppCompatActivity {
     private Intent intent;
     private Bundle bundle;
     private String screenType;
+    private boolean nextPage = false;
     //TODO: Continue to create TT class -> 2 Fragments + connect it to end game and menu + Memory + Maps
     //TODO: Think about the architecture of the classes
 
@@ -53,9 +54,16 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gamebuttons);
         findViews();
+        setBackGround();
+
+
+        //Receive the data from main page and set the intent to the Top Ten page
         intent = getIntent();
-        bundle = intent.getBundleExtra(MainActivity.BUNDLE);
-        screenType = bundle.getString(MainActivity.GAME_SCREEN);
+        bundle = intent.getBundleExtra(KeysToSaveEnums.BUNDLE.toString());
+        intent = new Intent(GameActivity.this, TopTenActivity.class);
+        screenType = bundle.getString(KeysToSaveEnums.GAME_SCREEN.toString());
+
+        //Check which mode to activate in the game -> SENSORS / BUTTONS
         if(screenType.equals(MainActivity.SENSORS)){
             main_BTN_upArrow.setVisibility(View.INVISIBLE);
             main_BTN_rightArrow.setVisibility(View.INVISIBLE);
@@ -70,12 +78,15 @@ public class GameActivity extends AppCompatActivity {
             main_BTN_leftArrow.setOnClickListener(view -> gameManager.changeDeerDirection(Directions.LEFT));
         }
 
+        //Set the timer for the game and send him the callback
         gameTimer = new GameTimer(callBack_Timer);
         gameTimer.start();
 
         gameUiUpdate = new GameUiUpdate(this, matrix, main_LBL_score, game_IMG_hearts);
         gameManager = new GameManager(rows, columns, this);
     }
+
+    ////CALLBACK TIMER
     private CallBack_Timer callBack_Timer = new CallBack_Timer() {
         @Override
         public void gameTimer() {
@@ -87,6 +98,8 @@ public class GameActivity extends AppCompatActivity {
             moveCoinGameManager();
         }
     };
+
+    //////CALLBACK MOTION SENSOR
     private CallBack_MotionSensor callBack_motionSensor = new CallBack_MotionSensor() {
         @Override
         public void right() {
@@ -109,6 +122,7 @@ public class GameActivity extends AppCompatActivity {
         }
     };
 
+    //Set views
     private void findViews() {
         matrix = new ImageView[][]{{
                 findViewById(R.id.main_IMG_row0col0), findViewById(R.id.main_IMG_row0col1), findViewById(R.id.main_IMG_row0col2), findViewById(R.id.main_IMG_row0col3), findViewById(R.id.main_IMG_row0col4)},
@@ -129,9 +143,12 @@ public class GameActivity extends AppCompatActivity {
         main_BTN_downArrow = findViewById(R.id.main_BTN_downArrow);
         main_BTN_leftArrow = findViewById(R.id.main_BTN_leftArrow);
         game_IMG_backGround = findViewById(R.id.game_IMG_backGround);
+    }
+
+    public void setBackGround(){
         Glide
                 .with(this)
-                .load(LINK_BACKGROUND)
+                .load(MainActivity.LINK_BACKGROUND)
                 .into(game_IMG_backGround);
     }
 
@@ -172,8 +189,13 @@ public class GameActivity extends AppCompatActivity {
 
     public void manageMove(){
         if (gameManager.checkCollisionHunterDeer()) {
-            if (gameManager.getLives() == 1) {
-                Toast.makeText(this, "LOSER", Toast.LENGTH_LONG).show();
+            if (gameManager.getLives() == 3) {
+                if(!nextPage) {
+                    bundle.putInt(KeysToSaveEnums.SCORE.toString(), gameManager.getScore());
+                    intent.putExtra(KeysToSaveEnums.BUNDLE.toString(), bundle);
+                    startActivity(intent);
+                    nextPage=true;
+                }
                 finish();
             } else {
                 newGameFlag = true;//There was collision
