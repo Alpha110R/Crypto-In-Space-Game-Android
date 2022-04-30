@@ -1,4 +1,4 @@
-package com.example.hunter_game.objects;
+package com.example.hunter_game.objects.Game.ObjectInGame;
 
 import com.example.hunter_game.objects.enums.Directions;
 

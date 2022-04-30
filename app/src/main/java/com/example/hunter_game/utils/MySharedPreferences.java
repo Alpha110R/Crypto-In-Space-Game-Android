@@ -40,6 +40,8 @@ public class MySharedPreferences {
 
     public boolean contain(String key) { return prefs.contains(key);}
 
+    public void clear(){ prefs.edit().clear().commit();}
+
 
     //INT
     public void putInt(String key, int value) {

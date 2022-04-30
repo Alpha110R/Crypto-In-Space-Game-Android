@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 /*
 INTENT:
       "BUNDLE":  BUNDLE:
-                        "USER_NAME": playerName (String),
+                        "NAME": playerName (String),
                         "GAME_SCREEN": SENSORS/BUTTONS (String)
  */
     private void findViews() {

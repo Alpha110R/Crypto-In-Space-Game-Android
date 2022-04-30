@@ -1,4 +1,4 @@
-package com.example.hunter_game.objects;
+package com.example.hunter_game.objects.Game;
 import android.os.Handler;
 
 import com.example.hunter_game.CallBacks.CallBack_Timer;

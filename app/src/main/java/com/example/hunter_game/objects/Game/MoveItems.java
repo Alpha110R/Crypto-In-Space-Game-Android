@@ -1,5 +1,7 @@
-package com.example.hunter_game.objects;
+package com.example.hunter_game.objects.Game;
 
+import com.example.hunter_game.objects.Game.ObjectInGame.Deer;
+import com.example.hunter_game.objects.Game.ObjectInGame.ItemInGame;
 import com.example.hunter_game.objects.enums.Directions;
 
 import java.util.Random;

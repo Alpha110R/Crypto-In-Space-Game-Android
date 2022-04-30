@@ -1,8 +1,9 @@
-package com.example.hunter_game.objects;
+package com.example.hunter_game.objects.Game;
 
 import android.content.Context;
 import android.widget.ImageView;
 
+import com.example.hunter_game.objects.Game.GameManager;
 import com.google.android.material.textview.MaterialTextView;
 
 public class GameUiUpdate {
