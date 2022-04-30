@@ -56,6 +56,7 @@ INTENT:
         });
 
     }
+
     public void checkAndUpdateUserToEnterTopTenList(){
         if(topTenListManager.checkIfEnterTopTenList())
             topTenListManager.updateList();

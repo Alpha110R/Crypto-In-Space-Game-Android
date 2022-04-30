@@ -21,7 +21,10 @@ public class TopTenListManager {
     public TopTenListManager(){}
     public TopTenListManager(Bundle bundle){
         setBundle(bundle);
+
         setTopTenListUsersFromSp();
+
+        //Creates the current user that played the game
         this.user = createUser();
     }
 
@@ -37,6 +40,21 @@ public class TopTenListManager {
 
     }
 
+    /**
+INTENT:
+      "BUNDLE":  BUNDLE:
+                        "NAME": playerName (String),
+                        "GAME_SCREEN": SENSORS/BUTTONS (String),
+                        "SCORE": score (int)
+                        "LOCATION": location (String)
+                        "DATE": date (Date)
+ **/
+
+    /**
+     Add user to the list after I checked in the activity that the user needs to enter the list.
+     After the add function I am sorting the list with comparator
+     @return VOID
+     */
     public void updateList(){
         if(listUsers.size() >= 10)
             exchangeLastToNewUserInList();
@@ -45,6 +63,11 @@ public class TopTenListManager {
         Collections.sort(listUsers, new ComparatorListUsers());
     }
 
+    /**
+     User will enter the list if the size of the list is less of 10
+     or his score is bigger from the last one in the list
+     @return VOID
+     */
     public boolean checkIfEnterTopTenList(){
         if(getListUsers().size() <10 || getListUsers().get(0).getScore() < user.getScore())
             return true;
@@ -59,6 +82,11 @@ public class TopTenListManager {
         return user;
     }
 
+    /**
+     Initialize the user list by pulling the array from the memory.
+     If there is no array in the memory it will create a new one
+     @return VOID
+     */
     private void setTopTenListUsersFromSp(){
         if(MySharedPreferences.getMe().contain(KeysToSaveEnums.LIST_USERS.toString())) {
             TypeToken token = new TypeToken<ArrayList<User>>() {};
