@@ -2,21 +2,22 @@ package com.example.hunter_game.objects.TopTen;
 
 import android.os.Bundle;
 
-import com.example.hunter_game.objects.TopTen.ComparatorListUsers;
 import com.example.hunter_game.objects.User;
 import com.example.hunter_game.objects.enums.KeysToSaveEnums;
 import com.example.hunter_game.utils.MySharedPreferences;
 import com.google.gson.reflect.TypeToken;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Locale;
 
 public class TopTenListManager {
     private Bundle bundle;
     private User user;
-    private int minScore;
     private ArrayList<User> listUsers;
+    private int lastIndex;
 
     public TopTenListManager(){}
     public TopTenListManager(Bundle bundle){
@@ -40,15 +41,15 @@ public class TopTenListManager {
 
     }
 
-    /**
+/**
 INTENT:
       "BUNDLE":  BUNDLE:
                         "NAME": playerName (String),
                         "GAME_SCREEN": SENSORS/BUTTONS (String),
                         "SCORE": score (int)
                         "LOCATION": location (String)
-                        "DATE": date (Date)
- **/
+                        "DATE": date (String)
+ */
 
     /**
      Add user to the list after I checked in the activity that the user needs to enter the list.
@@ -69,7 +70,7 @@ INTENT:
      @return VOID
      */
     public boolean checkIfEnterTopTenList(){
-        if(getListUsers().size() <10 || getListUsers().get(0).getScore() < user.getScore())
+        if(getListUsers().size() <10 || getListUsers().get(lastIndex).getScore() < user.getScore())
             return true;
         return false;
     }
@@ -94,6 +95,7 @@ INTENT:
         }
         else
             this.listUsers = new ArrayList<>();
+        this.lastIndex = this.listUsers.size()-1;
     }
 
 
@@ -105,21 +107,20 @@ INTENT:
                          .setLocation(getLocationUser());
     }
 
-    private void addUserToList(){//TODO: private + delete user parameter
+    private void addUserToList(){
         listUsers.add(user);
-        Collections.sort(listUsers, new ComparatorListUsers());
     }
 
     private void exchangeLastToNewUserInList(){
-        listUsers.remove(0);
-        listUsers.add(user);
+        listUsers.remove(lastIndex);
+        addUserToList();
     }
 
     private String getLocationUser(){
         return "";
     }
 
-    private Date getDateUser(){
-        return new Date();
+    private String getDateUser(){
+        return new SimpleDateFormat("dd-MM-yy HH:mm", Locale.US).format(System.currentTimeMillis());
     }
 }

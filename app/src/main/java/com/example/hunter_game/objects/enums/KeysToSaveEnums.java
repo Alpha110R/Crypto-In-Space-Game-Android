@@ -7,5 +7,8 @@ public enum KeysToSaveEnums {
     LOCATION,
     GAME_SCREEN,
     BUNDLE,
-    LIST_USERS
+    LIST_USERS,
+    PAGE,
+    MAIN_PAGE,
+    GAME_PAGE
 }

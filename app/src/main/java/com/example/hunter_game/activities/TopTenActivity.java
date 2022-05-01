@@ -3,21 +3,19 @@ package com.example.hunter_game.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.example.hunter_game.R;
-import com.example.hunter_game.fragments.Fragment_TTList;
-import com.example.hunter_game.fragments.Fragment_TTMap;
+import com.example.hunter_game.objects.TopTen.fragments.Fragment_TTList;
+import com.example.hunter_game.objects.TopTen.fragments.Fragment_TTMap;
 import com.example.hunter_game.objects.TopTen.TopTenListManager;
 import com.example.hunter_game.objects.User;
 import com.example.hunter_game.objects.enums.KeysToSaveEnums;
-import com.example.hunter_game.utils.MySharedPreferences;
 import com.google.android.material.button.MaterialButton;
-
-import java.util.Date;
 
 public class TopTenActivity extends AppCompatActivity {
     private Fragment_TTList fragmentList;
@@ -25,10 +23,12 @@ public class TopTenActivity extends AppCompatActivity {
     private ImageView topTen_IMG_backGround;
     private Intent intent;
     private Bundle bundle;
-    private MaterialButton topten_BTN_playAgain;
+    private MaterialButton topTen_BTN_playAgain,
+                           topTen_BTN_backToMenu;
     private TopTenListManager topTenListManager;
+    private boolean flagNextPage = false;
 
-/*
+/**
 INTENT:
       "BUNDLE":  BUNDLE:
                         "NAME": playerName (String),
@@ -40,21 +40,61 @@ INTENT:
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_topten);
-
-        //Receive the data from game page and set the intent to the game page to save the state of the player.
+        /**
+         * Receive the data from game page. Set the intent to the game page to save the state of the player.
+         */
         intent = getIntent();
         bundle = intent.getBundleExtra(KeysToSaveEnums.BUNDLE.toString());
-        intent = new Intent(TopTenActivity.this, GameActivity.class);
-
+        intent = new Intent();
         findViews();
         setBackGround();
+
+        /**
+         * If the player entered here from the main page he cant go and play
+         */
+        if(bundle.getString(KeysToSaveEnums.PAGE.toString()).equals(KeysToSaveEnums.MAIN_PAGE.toString()))
+            topTen_BTN_playAgain.setVisibility(View.INVISIBLE);
+
+
         topTenListManager = new TopTenListManager(bundle);
-
         checkAndUpdateUserToEnterTopTenList();
-        topten_BTN_playAgain.setOnClickListener(view -> {
+        fragmentList = new Fragment_TTList(this, topTenListManager.getListUsers());
+        //fragmentList.setCallBack_listToActivity(callBack_activityTitle);
+        //fragmentList.setCallBack_listAnimalClicked(callBack_listAnimalClicked);
+        getSupportFragmentManager().beginTransaction().add(R.id.topTen_LAY_list, fragmentList).commit();
 
+
+
+        /**
+         * Return to the game page and kill this page
+         */
+        topTen_BTN_playAgain.setOnClickListener(view -> {
+            if(!flagNextPage){
+                intent = new Intent(TopTenActivity.this, GameActivity.class);
+                exitPage();
+                startActivity(intent);
+            }
+            finish();
+        });
+        topTen_BTN_backToMenu.setOnClickListener(view -> {
+            if(!flagNextPage){
+                intent = new Intent(TopTenActivity.this, MainActivity.class);
+                exitPage();
+                startActivity(intent);
+            }
+            finish();
         });
 
+    }
+
+    /**
+     * Nullify player's score and push the bundle to intent.
+     * Also change the flag to true in order to do not get into the page opening loop from the intent
+     */
+    public void exitPage(){
+        bundle.putInt(KeysToSaveEnums.SCORE.toString(), 0);
+        intent.putExtra(KeysToSaveEnums.BUNDLE.toString(), bundle);
+        flagNextPage = true;
     }
 
     public void checkAndUpdateUserToEnterTopTenList(){
@@ -67,8 +107,9 @@ INTENT:
     }
 
     private void findViews() {
-        topten_BTN_playAgain = findViewById(R.id.topten_BTN_playAgain);
+        topTen_BTN_playAgain = findViewById(R.id.topTen_BTN_playAgain);
         topTen_IMG_backGround = findViewById(R.id.topTen_IMG_backGround);
+        topTen_BTN_backToMenu = findViewById(R.id.topTen_BTN_backToMenu);
     }
 
     public void setBackGround(){

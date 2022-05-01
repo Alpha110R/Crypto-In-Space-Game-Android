@@ -192,6 +192,7 @@ public class GameActivity extends AppCompatActivity {
             if (gameManager.getLives() == 3) {
                 if(!nextPage) {
                     bundle.putInt(KeysToSaveEnums.SCORE.toString(), gameManager.getScore());
+                    bundle.putString(KeysToSaveEnums.PAGE.toString(), KeysToSaveEnums.GAME_PAGE.toString());
                     intent.putExtra(KeysToSaveEnums.BUNDLE.toString(), bundle);
                     startActivity(intent);
                     nextPage=true;

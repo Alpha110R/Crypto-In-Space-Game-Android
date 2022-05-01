@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class User {
     private String name,
-                   location;
-    private Date date;
+                   location,
+                   date;
     private int score;
 
     public User (){}
@@ -28,11 +28,11 @@ public class User {
         return this;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public User setDate(Date date) {
+    public User setDate(String date) {
         this.date = date;
         return this;
     }
@@ -44,5 +44,14 @@ public class User {
     public User setScore(int score) {
         this.score = score;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return
+                "Player name: " + name +
+                "      SCORE: " + score +
+                "\nDate: " + date +
+                "\nLocation: " + location;
     }
 }

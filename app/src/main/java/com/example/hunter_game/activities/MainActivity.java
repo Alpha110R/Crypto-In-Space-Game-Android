@@ -37,14 +37,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         findViews();
         setBackGround();
+        intent = getIntent();
+        //Check if its not the first time in the main page it will present the name of the player
+        initializeBundleAndName();
 
-        intent = new Intent(MainActivity.this, GameActivity.class);
-        bundle = new Bundle();
         main_BTN_play.setOnClickListener(view -> {
-            playerName = main_EDT_playerName.getText().toString();
-            Log.d("tag", "name: " + playerName);
-            bundle.putString(KeysToSaveEnums.NAME.toString(), (String) playerName);
+            intent = new Intent(MainActivity.this, GameActivity.class);
+            putInBundlePlayerName();
             setPopUp().show();
+        });
+        main_BTN_topTen.setOnClickListener(view -> {
+            intent = new Intent(MainActivity.this, TopTenActivity.class);
+            putInBundlePlayerName();
+            bundle.putString(KeysToSaveEnums.PAGE.toString(), KeysToSaveEnums.MAIN_PAGE.toString());
+            intent.putExtra(KeysToSaveEnums.BUNDLE.toString(), bundle);
+            startActivity(intent);
         });
 
     }
@@ -66,6 +73,24 @@ INTENT:
                 .with(this)
                 .load(LINK_BACKGROUND)
                 .into(main_IMG_backGround);
+    }
+
+    public void putInBundlePlayerName(){
+        playerName = main_EDT_playerName.getText().toString();
+        bundle.putString(KeysToSaveEnums.NAME.toString(), (String) playerName);
+    }
+
+    /**
+     * Presenting the name of the player if its not the first time in the main page
+     * So that the player does not have to rewrite the name
+     */
+    public void initializeBundleAndName(){
+        if (intent.getBundleExtra(KeysToSaveEnums.BUNDLE.toString()) != null) {
+            bundle = intent.getBundleExtra(KeysToSaveEnums.BUNDLE.toString());
+            main_EDT_playerName.setText(bundle.getString(KeysToSaveEnums.NAME.toString()));
+        } else {
+            bundle = new Bundle();
+        }
     }
 
     //POP-UP FOR BUTTON / SENSORS

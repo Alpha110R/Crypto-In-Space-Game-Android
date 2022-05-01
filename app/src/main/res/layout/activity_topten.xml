@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activities.TopTenActivity">
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -21,41 +22,42 @@
         android:gravity="center">
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/topten_LBL_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:textColor="#000000"
-            android:textSize="25sp"
+            android:layout_marginTop="15dp"
+            android:textColor="#F5F5F5"
+            android:textSize="35sp"
             android:text="TOP TEN"
+            android:fontFamily="serif"
             android:textStyle="bold"/>
 
         <FrameLayout
-            android:id="@+id/topten_LAY_list"
+            android:id="@+id/topTen_LAY_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:padding="20dp"
+            android:padding="10dp"
             android:layout_weight="1"
-            android:layout_margin="24dp"
-            android:background="#45454545"/>
+            android:layout_margin="8dp"
+            android:background="#40b2b2b1" >
+        </FrameLayout>
 
         <FrameLayout
-            android:id="@+id/topten_LAY_map"
+            android:id="@+id/topTen_LAY_map"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:padding="20dp"
+            android:padding="10dp"
             android:layout_weight="1"
-            android:layout_margin="24dp"
+            android:layout_margin="8dp"
             android:background="#45454545"/>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/topten_BTN_playAgain"
+            android:id="@+id/topTen_BTN_playAgain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Play Again" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/topten_BTN_backToMenu"
+            android:id="@+id/topTen_BTN_backToMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Back To Menu"
