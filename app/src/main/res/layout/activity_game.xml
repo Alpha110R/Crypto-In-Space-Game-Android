@@ -25,20 +25,20 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/main_IMG_heart1"
+                android:id="@+id/game_IMG_heart1"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:src="@drawable/ic_heart" />
 
             <ImageView
-                android:id="@+id/main_IMG_heart2"
+                android:id="@+id/game_IMG_heart2"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_marginStart="5dp"
                 android:src="@drawable/ic_heart" />
 
             <ImageView
-                android:id="@+id/main_IMG_heart3"
+                android:id="@+id/game_IMG_heart3"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_marginStart="5dp"
@@ -46,7 +46,7 @@
 
         </androidx.appcompat.widget.LinearLayoutCompat>
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/main_LBL_score"
+                android:id="@+id/game_LBL_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -56,12 +56,12 @@
                 android:textSize="55dp"
                 android:textStyle="bold" />
     <LinearLayout
-        android:id="@+id/main_LNL_matrix"
+        android:id="@+id/game_LNL_matrix"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_below="@id/main_LBL_score"
-        android:layout_above="@id/main_LNL_directions"
+        android:layout_below="@id/game_LBL_score"
+        android:layout_above="@id/game_LNL_directions"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="10dp">
         <View
@@ -79,7 +79,7 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/white"/>
             <ImageView
-                android:id="@+id/main_IMG_row0col0"
+                android:id="@+id/game_IMG_row0col0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_deer"
@@ -90,7 +90,7 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/white"/>
             <ImageView
-                android:id="@+id/main_IMG_row0col1"
+                android:id="@+id/game_IMG_row0col1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -101,7 +101,7 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/white"/>
             <ImageView
-                android:id="@+id/main_IMG_row0col2"
+                android:id="@+id/game_IMG_row0col2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -112,7 +112,7 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/white"/>
             <ImageView
-                android:id="@+id/main_IMG_row0col3"
+                android:id="@+id/game_IMG_row0col3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -123,7 +123,7 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/white"/>
             <ImageView
-                android:id="@+id/main_IMG_row0col4"
+                android:id="@+id/game_IMG_row0col4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -149,7 +149,7 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/white"/>
             <ImageView
-                android:id="@+id/main_IMG_row1col0"
+                android:id="@+id/game_IMG_row1col0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -160,7 +160,7 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/white"/>
             <ImageView
-                android:id="@+id/main_IMG_row1col1"
+                android:id="@+id/game_IMG_row1col1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -171,7 +171,7 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/white"/>
             <ImageView
-                android:id="@+id/main_IMG_row1col2"
+                android:id="@+id/game_IMG_row1col2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -182,7 +182,7 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/white"/>
             <ImageView
-                android:id="@+id/main_IMG_row1col3"
+                android:id="@+id/game_IMG_row1col3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -193,76 +193,7 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/white"/>
             <ImageView
-                android:id="@+id/main_IMG_row1col4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/ic_deer"
-                android:visibility="invisible"/>
-            <View
-                android:layout_width="3dp"
-                android:layout_height="match_parent"
-                android:background="@android:color/white"/>
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:background="@android:color/white"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-            <View
-                android:layout_width="3dp"
-                android:layout_height="match_parent"
-                android:background="@android:color/white"/>
-            <ImageView
-                android:id="@+id/main_IMG_row2col0"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/ic_deer"
-                android:visibility="invisible"/>
-            <View
-                android:layout_width="3dp"
-                android:layout_height="match_parent"
-                android:background="@android:color/white"/>
-            <ImageView
-                android:id="@+id/main_IMG_row2col1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/ic_deer"
-                android:visibility="invisible"/>
-            <View
-                android:layout_width="3dp"
-                android:layout_height="match_parent"
-                android:background="@android:color/white"/>
-            <ImageView
-                android:id="@+id/main_IMG_row2col2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/ic_deer"
-                android:visibility="invisible"/>
-            <View
-                android:layout_width="3dp"
-                android:layout_height="match_parent"
-                android:background="@android:color/white"/>
-            <ImageView
-                android:id="@+id/main_IMG_row2col3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/ic_deer"
-                android:visibility="invisible"/>
-            <View
-                android:layout_width="3dp"
-                android:layout_height="match_parent"
-                android:background="@android:color/white"/>
-            <ImageView
-                android:id="@+id/main_IMG_row2col4"
+                android:id="@+id/game_IMG_row1col4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -287,7 +218,7 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/white"/>
             <ImageView
-                android:id="@+id/main_IMG_row3col0"
+                android:id="@+id/game_IMG_row2col0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -298,7 +229,7 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/white"/>
             <ImageView
-                android:id="@+id/main_IMG_row3col1"
+                android:id="@+id/game_IMG_row2col1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -309,7 +240,7 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/white"/>
             <ImageView
-                android:id="@+id/main_IMG_row3col2"
+                android:id="@+id/game_IMG_row2col2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -320,7 +251,7 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/white"/>
             <ImageView
-                android:id="@+id/main_IMG_row3col3"
+                android:id="@+id/game_IMG_row2col3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -331,76 +262,7 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/white"/>
             <ImageView
-                android:id="@+id/main_IMG_row3col4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/ic_deer"
-                android:visibility="invisible"/>
-            <View
-                android:layout_width="3dp"
-                android:layout_height="match_parent"
-                android:background="@android:color/white"/>
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:background="@android:color/white"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-            <View
-                android:layout_width="3dp"
-                android:layout_height="match_parent"
-                android:background="@android:color/white"/>
-            <ImageView
-                android:id="@+id/main_IMG_row4col0"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/ic_deer"
-                android:visibility="invisible"/>
-            <View
-                android:layout_width="3dp"
-                android:layout_height="match_parent"
-                android:background="@android:color/white"/>
-            <ImageView
-                android:id="@+id/main_IMG_row4col1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/ic_deer"
-                android:visibility="invisible"/>
-            <View
-                android:layout_width="3dp"
-                android:layout_height="match_parent"
-                android:background="@android:color/white"/>
-            <ImageView
-                android:id="@+id/main_IMG_row4col2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/ic_deer"
-                android:visibility="invisible"/>
-            <View
-                android:layout_width="3dp"
-                android:layout_height="match_parent"
-                android:background="@android:color/white"/>
-            <ImageView
-                android:id="@+id/main_IMG_row4col3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/ic_deer"
-                android:visibility="invisible"/>
-            <View
-                android:layout_width="3dp"
-                android:layout_height="match_parent"
-                android:background="@android:color/white"/>
-            <ImageView
-                android:id="@+id/main_IMG_row4col4"
+                android:id="@+id/game_IMG_row2col4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -425,7 +287,7 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/white"/>
             <ImageView
-                android:id="@+id/main_IMG_row5col0"
+                android:id="@+id/game_IMG_row3col0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -436,7 +298,7 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/white"/>
             <ImageView
-                android:id="@+id/main_IMG_row5col1"
+                android:id="@+id/game_IMG_row3col1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -447,7 +309,7 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/white"/>
             <ImageView
-                android:id="@+id/main_IMG_row5col2"
+                android:id="@+id/game_IMG_row3col2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -458,7 +320,7 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/white"/>
             <ImageView
-                android:id="@+id/main_IMG_row5col3"
+                android:id="@+id/game_IMG_row3col3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -469,7 +331,7 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/white"/>
             <ImageView
-                android:id="@+id/main_IMG_row5col4"
+                android:id="@+id/game_IMG_row3col4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -494,7 +356,7 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/white"/>
             <ImageView
-                android:id="@+id/main_IMG_row6col0"
+                android:id="@+id/game_IMG_row4col0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -505,7 +367,7 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/white"/>
             <ImageView
-                android:id="@+id/main_IMG_row6col1"
+                android:id="@+id/game_IMG_row4col1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -516,7 +378,7 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/white"/>
             <ImageView
-                android:id="@+id/main_IMG_row6col2"
+                android:id="@+id/game_IMG_row4col2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -527,7 +389,7 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/white"/>
             <ImageView
-                android:id="@+id/main_IMG_row6col3"
+                android:id="@+id/game_IMG_row4col3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -538,7 +400,145 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/white"/>
             <ImageView
-                android:id="@+id/main_IMG_row6col4"
+                android:id="@+id/game_IMG_row4col4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/ic_deer"
+                android:visibility="invisible"/>
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"/>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@android:color/white"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"/>
+            <ImageView
+                android:id="@+id/game_IMG_row5col0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/ic_deer"
+                android:visibility="invisible"/>
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"/>
+            <ImageView
+                android:id="@+id/game_IMG_row5col1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/ic_deer"
+                android:visibility="invisible"/>
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"/>
+            <ImageView
+                android:id="@+id/game_IMG_row5col2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/ic_deer"
+                android:visibility="invisible"/>
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"/>
+            <ImageView
+                android:id="@+id/game_IMG_row5col3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/ic_deer"
+                android:visibility="invisible"/>
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"/>
+            <ImageView
+                android:id="@+id/game_IMG_row5col4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/ic_deer"
+                android:visibility="invisible"/>
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"/>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@android:color/white"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"/>
+            <ImageView
+                android:id="@+id/game_IMG_row6col0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/ic_deer"
+                android:visibility="invisible"/>
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"/>
+            <ImageView
+                android:id="@+id/game_IMG_row6col1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/ic_deer"
+                android:visibility="invisible"/>
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"/>
+            <ImageView
+                android:id="@+id/game_IMG_row6col2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/ic_deer"
+                android:visibility="invisible"/>
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"/>
+            <ImageView
+                android:id="@+id/game_IMG_row6col3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/ic_deer"
+                android:visibility="invisible"/>
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"/>
+            <ImageView
+                android:id="@+id/game_IMG_row6col4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -556,7 +556,7 @@
     </LinearLayout>
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/main_LNL_directions"
+            android:id="@+id/game_LNL_directions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -565,7 +565,7 @@
             android:weightSum="3">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/main_BTN_upArrow"
+                android:id="@+id/game_BTN_upArrow"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center_horizontal"
@@ -583,7 +583,7 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/main_BTN_leftArrow"
+                    android:id="@+id/game_BTN_leftArrow"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginEnd="40dp"
@@ -593,7 +593,7 @@
                     app:iconTint="#E6EFEBEA"/>
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/main_BTN_rightArrow"
+                    android:id="@+id/game_BTN_rightArrow"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginStart="40dp"
@@ -604,7 +604,7 @@
             </LinearLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/main_BTN_downArrow"
+                android:id="@+id/game_BTN_downArrow"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center_horizontal"

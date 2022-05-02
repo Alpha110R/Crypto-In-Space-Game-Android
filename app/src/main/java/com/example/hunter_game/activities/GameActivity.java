@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.example.hunter_game.CallBacks.CallBack_MotionSensor;
 import com.example.hunter_game.CallBacks.CallBack_Timer;
 import com.example.hunter_game.R;
@@ -18,6 +17,8 @@ import com.example.hunter_game.objects.Game.GameUiUpdate;
 import com.example.hunter_game.objects.enums.Directions;
 import com.example.hunter_game.objects.enums.KeysToSaveEnums;
 import com.example.hunter_game.objects.enums.TimerStatus;
+import com.example.hunter_game.utils.BackGround;
+import com.example.hunter_game.utils.MySharedPreferences;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 
@@ -31,11 +32,11 @@ public class GameActivity extends AppCompatActivity {
     private GameManager gameManager;
     private GameUiUpdate gameUiUpdate;
     private GameTimer gameTimer;
-    private MaterialTextView main_LBL_score;
-    private MaterialButton main_BTN_upArrow,
-                           main_BTN_rightArrow,
-                           main_BTN_downArrow,
-                           main_BTN_leftArrow;
+    private MaterialTextView game_LBL_score;
+    private MaterialButton game_BTN_upArrow,
+                           game_BTN_rightArrow,
+                           game_BTN_downArrow,
+                           game_BTN_leftArrow;
     private TimerStatus timerStatus = TimerStatus.OFF;
     private ImageView [][] matrix;
     private boolean newGameFlag = true;//Import flag to sign if this round of the timer is a new game or not.
@@ -52,10 +53,9 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gamebuttons);
+        setContentView(R.layout.activity_game);
         findViews();
-        setBackGround();
-
+        new BackGround(this, game_IMG_backGround).setBackGround();
 
         //Receive the data from main page and set the intent to the Top Ten page
         intent = getIntent();
@@ -65,24 +65,24 @@ public class GameActivity extends AppCompatActivity {
 
         //Check which mode to activate in the game -> SENSORS / BUTTONS
         if(screenType.equals(MainActivity.SENSORS)){
-            main_BTN_upArrow.setVisibility(View.INVISIBLE);
-            main_BTN_rightArrow.setVisibility(View.INVISIBLE);
-            main_BTN_downArrow.setVisibility(View.INVISIBLE);
-            main_BTN_leftArrow.setVisibility(View.INVISIBLE);
+            game_BTN_upArrow.setVisibility(View.INVISIBLE);
+            game_BTN_rightArrow.setVisibility(View.INVISIBLE);
+            game_BTN_downArrow.setVisibility(View.INVISIBLE);
+            game_BTN_leftArrow.setVisibility(View.INVISIBLE);
             GameMoveSensor.initHelper(this, callBack_motionSensor);
         }
         else {
-            main_BTN_upArrow.setOnClickListener(view -> gameManager.changeDeerDirection(Directions.UP));
-            main_BTN_rightArrow.setOnClickListener(view -> gameManager.changeDeerDirection(Directions.RIGHT));
-            main_BTN_downArrow.setOnClickListener(view -> gameManager.changeDeerDirection(Directions.DOWN));
-            main_BTN_leftArrow.setOnClickListener(view -> gameManager.changeDeerDirection(Directions.LEFT));
+            game_BTN_upArrow.setOnClickListener(view -> gameManager.changeDeerDirection(Directions.UP));
+            game_BTN_rightArrow.setOnClickListener(view -> gameManager.changeDeerDirection(Directions.RIGHT));
+            game_BTN_downArrow.setOnClickListener(view -> gameManager.changeDeerDirection(Directions.DOWN));
+            game_BTN_leftArrow.setOnClickListener(view -> gameManager.changeDeerDirection(Directions.LEFT));
         }
 
         //Set the timer for the game and send him the callback
         gameTimer = new GameTimer(callBack_Timer);
         gameTimer.start();
 
-        gameUiUpdate = new GameUiUpdate(this, matrix, main_LBL_score, game_IMG_hearts);
+        gameUiUpdate = new GameUiUpdate(this, matrix, game_LBL_score, game_IMG_hearts);
         gameManager = new GameManager(rows, columns, this);
     }
 
@@ -125,35 +125,28 @@ public class GameActivity extends AppCompatActivity {
     //Set views
     private void findViews() {
         matrix = new ImageView[][]{{
-                findViewById(R.id.main_IMG_row0col0), findViewById(R.id.main_IMG_row0col1), findViewById(R.id.main_IMG_row0col2), findViewById(R.id.main_IMG_row0col3), findViewById(R.id.main_IMG_row0col4)},
-                {findViewById(R.id.main_IMG_row1col0), findViewById(R.id.main_IMG_row1col1), findViewById(R.id.main_IMG_row1col2), findViewById(R.id.main_IMG_row1col3), findViewById(R.id.main_IMG_row1col4)},
-                {findViewById(R.id.main_IMG_row2col0), findViewById(R.id.main_IMG_row2col1), findViewById(R.id.main_IMG_row2col2), findViewById(R.id.main_IMG_row2col3), findViewById(R.id.main_IMG_row2col4)},
-                {findViewById(R.id.main_IMG_row3col0), findViewById(R.id.main_IMG_row3col1), findViewById(R.id.main_IMG_row3col2), findViewById(R.id.main_IMG_row3col3), findViewById(R.id.main_IMG_row3col4)},
-                {findViewById(R.id.main_IMG_row4col0), findViewById(R.id.main_IMG_row4col1), findViewById(R.id.main_IMG_row4col2), findViewById(R.id.main_IMG_row4col3), findViewById(R.id.main_IMG_row4col4)},
-                {findViewById(R.id.main_IMG_row5col0), findViewById(R.id.main_IMG_row5col1), findViewById(R.id.main_IMG_row5col2), findViewById(R.id.main_IMG_row5col3), findViewById(R.id.main_IMG_row5col4)},
-                {findViewById(R.id.main_IMG_row6col0), findViewById(R.id.main_IMG_row6col1), findViewById(R.id.main_IMG_row6col2), findViewById(R.id.main_IMG_row6col3), findViewById(R.id.main_IMG_row6col4)}};
+                findViewById(R.id.game_IMG_row0col0), findViewById(R.id.game_IMG_row0col1), findViewById(R.id.game_IMG_row0col2), findViewById(R.id.game_IMG_row0col3), findViewById(R.id.game_IMG_row0col4)},
+                {findViewById(R.id.game_IMG_row1col0), findViewById(R.id.game_IMG_row1col1), findViewById(R.id.game_IMG_row1col2), findViewById(R.id.game_IMG_row1col3), findViewById(R.id.game_IMG_row1col4)},
+                {findViewById(R.id.game_IMG_row2col0), findViewById(R.id.game_IMG_row2col1), findViewById(R.id.game_IMG_row2col2), findViewById(R.id.game_IMG_row2col3), findViewById(R.id.game_IMG_row2col4)},
+                {findViewById(R.id.game_IMG_row3col0), findViewById(R.id.game_IMG_row3col1), findViewById(R.id.game_IMG_row3col2), findViewById(R.id.game_IMG_row3col3), findViewById(R.id.game_IMG_row3col4)},
+                {findViewById(R.id.game_IMG_row4col0), findViewById(R.id.game_IMG_row4col1), findViewById(R.id.game_IMG_row4col2), findViewById(R.id.game_IMG_row4col3), findViewById(R.id.game_IMG_row4col4)},
+                {findViewById(R.id.game_IMG_row5col0), findViewById(R.id.game_IMG_row5col1), findViewById(R.id.game_IMG_row5col2), findViewById(R.id.game_IMG_row5col3), findViewById(R.id.game_IMG_row5col4)},
+                {findViewById(R.id.game_IMG_row6col0), findViewById(R.id.game_IMG_row6col1), findViewById(R.id.game_IMG_row6col2), findViewById(R.id.game_IMG_row6col3), findViewById(R.id.game_IMG_row6col4)}};
         game_IMG_hearts = new ImageView[]{
-                findViewById(R.id.main_IMG_heart1),
-                findViewById(R.id.main_IMG_heart2),
-                findViewById(R.id.main_IMG_heart3)
+                findViewById(R.id.game_IMG_heart1),
+                findViewById(R.id.game_IMG_heart2),
+                findViewById(R.id.game_IMG_heart3)
         };
-        main_LBL_score = findViewById(R.id.main_LBL_score);
-        main_BTN_upArrow = findViewById(R.id.main_BTN_upArrow);
-        main_BTN_rightArrow = findViewById(R.id.main_BTN_rightArrow);
-        main_BTN_downArrow = findViewById(R.id.main_BTN_downArrow);
-        main_BTN_leftArrow = findViewById(R.id.main_BTN_leftArrow);
+        game_LBL_score = findViewById(R.id.game_LBL_score);
+        game_BTN_upArrow = findViewById(R.id.game_BTN_upArrow);
+        game_BTN_rightArrow = findViewById(R.id.game_BTN_rightArrow);
+        game_BTN_downArrow = findViewById(R.id.game_BTN_downArrow);
+        game_BTN_leftArrow = findViewById(R.id.game_BTN_leftArrow);
         game_IMG_backGround = findViewById(R.id.game_IMG_backGround);
     }
 
-    public void setBackGround(){
-        Glide
-                .with(this)
-                .load(MainActivity.LINK_BACKGROUND)
-                .into(game_IMG_backGround);
-    }
-
     public void setScoreText(int score){
-        main_LBL_score.setText("" + score);
+        game_LBL_score.setText("" + score);
     }
 
     public void updateUINewGame(){
@@ -239,6 +232,7 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+
         //GameMoveSensor.getMe().onPauseSensorManager();
     }
 }

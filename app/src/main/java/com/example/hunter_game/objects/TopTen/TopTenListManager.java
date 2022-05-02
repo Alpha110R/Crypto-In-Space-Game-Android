@@ -13,7 +13,18 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+INTENT:
+        "BUNDLE":  BUNDLE:
+                            "NAME": playerName (String),
+                            "GAME_SCREEN": SENSORS/BUTTONS (String),
+                            "SCORE": score (int)
+                            "LOCATION": location (String)
+                            "DATE": date (String)
+ */
+
 public class TopTenListManager {
+
     private Bundle bundle;
     private User user;
     private ArrayList<User> listUsers;
@@ -40,16 +51,6 @@ public class TopTenListManager {
         MySharedPreferences.getMe().putArray(KeysToSaveEnums.LIST_USERS.toString(), listUsers);
 
     }
-
-/**
-INTENT:
-      "BUNDLE":  BUNDLE:
-                        "NAME": playerName (String),
-                        "GAME_SCREEN": SENSORS/BUTTONS (String),
-                        "SCORE": score (int)
-                        "LOCATION": location (String)
-                        "DATE": date (String)
- */
 
     /**
      Add user to the list after I checked in the activity that the user needs to enter the list.
@@ -97,8 +98,6 @@ INTENT:
             this.listUsers = new ArrayList<>();
         this.lastIndex = this.listUsers.size()-1;
     }
-
-
 
     private User createUser(){
         return new User().setName(bundle.getString(KeysToSaveEnums.NAME.toString(),""))

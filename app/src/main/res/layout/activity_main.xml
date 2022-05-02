@@ -39,7 +39,9 @@
             app:endIconTint="#F5F5F5"
             app:hintTextColor="#F5F5F5"
             android:layout_centerInParent="true"
-            app:cornerRadius="20dp">
+            app:cornerRadius="20dp"
+            app:errorEnabled="true"
+            app:errorTextColor="@android:color/holo_red_light">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/main_EDT_playerName"
                 android:layout_width="300dp"

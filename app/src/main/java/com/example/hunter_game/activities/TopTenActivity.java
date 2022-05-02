@@ -2,19 +2,18 @@ package com.example.hunter_game.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.bumptech.glide.Glide;
 import com.example.hunter_game.R;
 import com.example.hunter_game.objects.TopTen.fragments.Fragment_TTList;
 import com.example.hunter_game.objects.TopTen.fragments.Fragment_TTMap;
 import com.example.hunter_game.objects.TopTen.TopTenListManager;
-import com.example.hunter_game.objects.User;
 import com.example.hunter_game.objects.enums.KeysToSaveEnums;
+import com.example.hunter_game.utils.BackGround;
+import com.example.hunter_game.utils.MySignal;
 import com.google.android.material.button.MaterialButton;
 
 public class TopTenActivity extends AppCompatActivity {
@@ -40,14 +39,13 @@ INTENT:
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_topten);
-        /**
-         * Receive the data from game page. Set the intent to the game page to save the state of the player.
-         */
-        intent = getIntent();
-        bundle = intent.getBundleExtra(KeysToSaveEnums.BUNDLE.toString());
-        intent = new Intent();
+
+        setIntentAndBundle();
+
         findViews();
-        setBackGround();
+        new BackGround(this, topTen_IMG_backGround).setBackGround();
+
+        topTenListManager = new TopTenListManager(bundle);
 
         /**
          * If the player entered here from the main page he cant go and play
@@ -55,36 +53,35 @@ INTENT:
         if(bundle.getString(KeysToSaveEnums.PAGE.toString()).equals(KeysToSaveEnums.MAIN_PAGE.toString()))
             topTen_BTN_playAgain.setVisibility(View.INVISIBLE);
 
-
-        topTenListManager = new TopTenListManager(bundle);
         checkAndUpdateUserToEnterTopTenList();
         fragmentList = new Fragment_TTList(this, topTenListManager.getListUsers());
         //fragmentList.setCallBack_listToActivity(callBack_activityTitle);
         //fragmentList.setCallBack_listAnimalClicked(callBack_listAnimalClicked);
         getSupportFragmentManager().beginTransaction().add(R.id.topTen_LAY_list, fragmentList).commit();
 
-
-
         /**
-         * Return to the game page and kill this page
+         * Move to the page that the player chose
          */
         topTen_BTN_playAgain.setOnClickListener(view -> {
-            if(!flagNextPage){
-                intent = new Intent(TopTenActivity.this, GameActivity.class);
-                exitPage();
-                startActivity(intent);
-            }
-            finish();
+            moveToPageWithBundle(GameActivity.class);
         });
         topTen_BTN_backToMenu.setOnClickListener(view -> {
-            if(!flagNextPage){
-                intent = new Intent(TopTenActivity.this, MainActivity.class);
-                exitPage();
-                startActivity(intent);
-            }
-            finish();
+           moveToPageWithBundle(MainActivity.class);
         });
+    }
 
+    /**
+     * Set the intent to the activity I want to go to
+     * Includes finish() to remove the activity from the stack
+     * @param activity Class
+     */
+    public void moveToPageWithBundle(Class activity){
+        if(!flagNextPage) {
+            intent = new Intent(TopTenActivity.this, activity);
+            exitPage();
+            startActivity(intent);
+        }
+        finish();
     }
 
     /**
@@ -97,13 +94,29 @@ INTENT:
         flagNextPage = true;
     }
 
-    public void checkAndUpdateUserToEnterTopTenList(){
-        if(topTenListManager.checkIfEnterTopTenList())
-            topTenListManager.updateList();
-        else{
+    /**
+     * Receive the data from game page. Set the intent to the game page to save the state of the player.
+     */
+    public void setIntentAndBundle(){
+        intent = getIntent();
+        bundle = intent.getBundleExtra(KeysToSaveEnums.BUNDLE.toString());
+    }
 
+    /**
+     * Checks with the manager if the user arrived from menu +
+     *                         if the user has the score to enter to the TOP TEN list +
+     *                         if the user has the score the manager will update the list with the user score.
+     * Update only if the player arrived from game
+     */
+    public void checkAndUpdateUserToEnterTopTenList(){
+        if(topTenListManager.getUser().getScore() > 0) {//If the player arrived from the menu to see the list he has 0 score
+            if (topTenListManager.checkIfEnterTopTenList()){
+                topTenListManager.updateList();//If the player succeeded to enter to the TOP TEN list
+                MySignal.getMe().makeToastMessage("You entered to Top Ten List!");
+            }
+            else
+                MySignal.getMe().makeToastMessage("You didn't made it to TOP TEN");
         }
-            //TODO: SIGNAL -> TOAST
     }
 
     private void findViews() {
@@ -112,19 +125,14 @@ INTENT:
         topTen_BTN_backToMenu = findViewById(R.id.topTen_BTN_backToMenu);
     }
 
-    public void setBackGround(){
-        Glide
-                .with(this)
-                .load(MainActivity.LINK_BACKGROUND)
-                .into(topTen_IMG_backGround);
-    }
-
     @Override
     protected void onPause() {
         super.onPause();
         topTenListManager.saveTopTenListUsersToSP();
     }
 }
+
+
 /*
 TEST:
 MySharedPreferences.getMe().clear();

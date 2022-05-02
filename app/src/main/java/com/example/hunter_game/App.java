@@ -3,6 +3,7 @@ package com.example.hunter_game;
 import android.app.Application;
 
 import com.example.hunter_game.utils.MySharedPreferences;
+import com.example.hunter_game.utils.MySignal;
 
 public class App extends Application {
 
@@ -11,6 +12,7 @@ public class App extends Application {
         super.onCreate();
 
         MySharedPreferences.initHelper(this);
+        MySignal.initHelper(this);
 
     }
 }
