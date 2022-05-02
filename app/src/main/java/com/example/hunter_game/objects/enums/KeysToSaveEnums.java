@@ -10,5 +10,7 @@ public enum KeysToSaveEnums {
     LIST_USERS,
     PAGE,
     MAIN_PAGE,
-    GAME_PAGE
+    GAME_PAGE,
+    LATITUDE,
+    LONGITUDE
 }

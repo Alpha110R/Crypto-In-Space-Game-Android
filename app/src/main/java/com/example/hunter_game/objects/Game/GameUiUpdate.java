@@ -1,29 +1,31 @@
 package com.example.hunter_game.objects.Game;
 
+import android.app.Activity;
 import android.content.Context;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.example.hunter_game.objects.Game.GameManager;
 import com.google.android.material.textview.MaterialTextView;
 
-public class GameUiUpdate {
+public class GameUiUpdate {/*
     private GameManager gameManager;
-    private Context context;
+    private Activity activity;
     private ImageView[][] matrix;
     private MaterialTextView main_LBL_score;
     private ImageView[] game_IMG_hearts;
 
 
     public GameUiUpdate (){}
-    public GameUiUpdate (Context context, ImageView [][] matrix, MaterialTextView main_LBL_score, ImageView[] game_IMG_hearts){
-        this.context = context;
+    public GameUiUpdate (Activity activity, ImageView [][] matrix, MaterialTextView main_LBL_score, ImageView[] game_IMG_hearts){
+        this.activity = activity;
         this.matrix = matrix;
         this.main_LBL_score = main_LBL_score;
         this.game_IMG_hearts = game_IMG_hearts;
     }
-/*
+
     public void setScoreText(int score){
-            ((GameActivity)context).runOnUiThread(new Runnable() {
+            activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     main_LBL_score.setText(""+score);
@@ -38,7 +40,7 @@ public class GameUiUpdate {
     }
 
     public void clearIndexInMatrix(){
-        ((GameActivity)context).runOnUiThread(new Runnable() {
+        activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 matrix[gameManager.getDeer().getCordinateY()][gameManager.getDeer().getCordinateX()].setVisibility(View.INVISIBLE);
@@ -51,7 +53,7 @@ public class GameUiUpdate {
     public void updateUIMatrix(boolean newGameFlag){
         if(!newGameFlag)
             gameManager.move();
-        ((GameActivity)context).runOnUiThread(new Runnable() {
+        activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 matrix[gameManager.getDeer().getCordinateY()][gameManager.getDeer().getCordinateX()].setImageResource(gameManager.getResourceToImage("deer",gameManager.getDeer().getDirection()));
@@ -63,7 +65,7 @@ public class GameUiUpdate {
     }
 
     private void updateUIHeart() {
-        ((GameActivity)context).runOnUiThread(new Runnable() {
+        activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 for (int i = 0; i < game_IMG_hearts.length; i++) {

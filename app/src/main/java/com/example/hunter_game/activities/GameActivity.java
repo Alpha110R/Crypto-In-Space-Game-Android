@@ -23,8 +23,6 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 
 public class GameActivity extends AppCompatActivity {
-    //private static final String LINK_BACKGROUND="https://images.pexels.com/photos/1723637/pexels-photo-1723637.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
-
     private final int rows = 7;
     private final int columns = 5;
     private ImageView[] game_IMG_hearts;
@@ -45,9 +43,6 @@ public class GameActivity extends AppCompatActivity {
     private Bundle bundle;
     private String screenType;
     private boolean nextPage = false;
-    //TODO: Continue to create TT class -> 2 Fragments + connect it to end game and menu + Memory + Maps
-    //TODO: Think about the architecture of the classes
-
     //TODO: In sensor mode, after lose the sensors don't respond (check how the activities close)
     //TODO: Split this class
     @Override
@@ -70,6 +65,7 @@ public class GameActivity extends AppCompatActivity {
             game_BTN_downArrow.setVisibility(View.INVISIBLE);
             game_BTN_leftArrow.setVisibility(View.INVISIBLE);
             GameMoveSensor.initHelper(this, callBack_motionSensor);
+            GameMoveSensor.getMe().onResumeSensorManager();
         }
         else {
             game_BTN_upArrow.setOnClickListener(view -> gameManager.changeDeerDirection(Directions.UP));
@@ -82,7 +78,7 @@ public class GameActivity extends AppCompatActivity {
         gameTimer = new GameTimer(callBack_Timer);
         gameTimer.start();
 
-        gameUiUpdate = new GameUiUpdate(this, matrix, game_LBL_score, game_IMG_hearts);
+        //gameUiUpdate = new GameUiUpdate(this, matrix, game_LBL_score, game_IMG_hearts);
         gameManager = new GameManager(rows, columns, this);
     }
 
@@ -212,6 +208,7 @@ public class GameActivity extends AppCompatActivity {
             updateUIMatrix();
         }
     }
+
     public void moveCoinGameManager(){
         clearIndexCoinInMatrix();
         gameManager.getMoveItems().moveCoin();
@@ -227,12 +224,11 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        //GameMoveSensor.getMe().onResumeSensorManager();
+
     }
     @Override
     protected void onPause() {
         super.onPause();
-
         //GameMoveSensor.getMe().onPauseSensorManager();
     }
 }

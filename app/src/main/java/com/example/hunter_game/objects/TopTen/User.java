@@ -1,12 +1,13 @@
-package com.example.hunter_game.objects;
+package com.example.hunter_game.objects.TopTen;
 
-import java.util.Date;
+import com.example.hunter_game.utils.MySignal;
+import com.google.android.gms.maps.model.LatLng;
 
 public class User {
     private String name,
-                   location,
                    date;
     private int score;
+    private MyLocation location;
 
     public User (){}
 
@@ -19,11 +20,11 @@ public class User {
         return this;
     }
 
-    public String getLocation() {
+    public MyLocation getLocation() {
         return location;
     }
 
-    public User setLocation(String location) {
+    public User setLocation(MyLocation location) {
         this.location = location;
         return this;
     }
@@ -51,7 +52,6 @@ public class User {
         return
                 "Player name: " + name +
                 "      SCORE: " + score +
-                "\nDate: " + date +
-                "\nLocation: " + location;
+                "\nDate: " + date;
     }
 }

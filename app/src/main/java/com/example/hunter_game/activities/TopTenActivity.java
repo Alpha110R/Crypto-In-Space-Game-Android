@@ -7,18 +7,19 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.hunter_game.CallBacks.CallBack_ListUsers;
+import com.example.hunter_game.objects.TopTen.fragments.FragmentMap;
 import com.example.hunter_game.R;
 import com.example.hunter_game.objects.TopTen.fragments.Fragment_TTList;
-import com.example.hunter_game.objects.TopTen.fragments.Fragment_TTMap;
 import com.example.hunter_game.objects.TopTen.TopTenListManager;
 import com.example.hunter_game.objects.enums.KeysToSaveEnums;
 import com.example.hunter_game.utils.BackGround;
 import com.example.hunter_game.utils.MySignal;
 import com.google.android.material.button.MaterialButton;
 
-public class TopTenActivity extends AppCompatActivity {
+public class TopTenActivity extends AppCompatActivity{
     private Fragment_TTList fragmentList;
-    private Fragment_TTMap fragmentMap;
+    private FragmentMap fragmentMap;
     private ImageView topTen_IMG_backGround;
     private Intent intent;
     private Bundle bundle;
@@ -26,13 +27,14 @@ public class TopTenActivity extends AppCompatActivity {
                            topTen_BTN_backToMenu;
     private TopTenListManager topTenListManager;
     private boolean flagNextPage = false;
-
 /**
 INTENT:
       "BUNDLE":  BUNDLE:
                         "NAME": playerName (String),
                         "GAME_SCREEN": SENSORS/BUTTONS (String),
                         "SCORE": score (int)
+                        "LATITUDE": latitude (Double)
+                        "LONGITUDE": longitude (DOUBLE)
  */
 
     @Override
@@ -41,10 +43,8 @@ INTENT:
         setContentView(R.layout.activity_topten);
 
         setIntentAndBundle();
-
         findViews();
         new BackGround(this, topTen_IMG_backGround).setBackGround();
-
         topTenListManager = new TopTenListManager(bundle);
 
         /**
@@ -55,20 +55,38 @@ INTENT:
 
         checkAndUpdateUserToEnterTopTenList();
         fragmentList = new Fragment_TTList(this, topTenListManager.getListUsers());
-        //fragmentList.setCallBack_listToActivity(callBack_activityTitle);
-        //fragmentList.setCallBack_listAnimalClicked(callBack_listAnimalClicked);
-        getSupportFragmentManager().beginTransaction().add(R.id.topTen_LAY_list, fragmentList).commit();
+        fragmentMap = new FragmentMap(topTenListManager.getUser().getLocation());
+        fragmentList.setCallBack_ListUsers(callBack_listUsers);
+        getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .add(R.id.topTen_LAY_list, fragmentList)
+                                    .commit();
+        getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.topTen_LAY_map, fragmentMap)
+                                    .commit();
+
 
         /**
          * Move to the page that the player chose
          */
         topTen_BTN_playAgain.setOnClickListener(view -> {
             moveToPageWithBundle(GameActivity.class);
+            finish();
+
         });
         topTen_BTN_backToMenu.setOnClickListener(view -> {
            moveToPageWithBundle(MainActivity.class);
+            finish();
+
         });
     }
+    private CallBack_ListUsers callBack_listUsers = new CallBack_ListUsers() {
+        @Override
+        public void presentLocationInMap(int position) {
+            TopTenActivity.this.fragmentMap.updateMap(topTenListManager.getListUsers().get(position).getLocation());
+        }
+    };
 
     /**
      * Set the intent to the activity I want to go to
@@ -129,6 +147,9 @@ INTENT:
     protected void onPause() {
         super.onPause();
         topTenListManager.saveTopTenListUsersToSP();
+    }
+    public TopTenListManager getTopTenListManager(){
+        return topTenListManager;
     }
 }
 

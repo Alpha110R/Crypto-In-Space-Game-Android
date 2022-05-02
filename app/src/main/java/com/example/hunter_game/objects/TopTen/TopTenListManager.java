@@ -1,16 +1,16 @@
 package com.example.hunter_game.objects.TopTen;
 
 import android.os.Bundle;
+import android.util.Log;
 
-import com.example.hunter_game.objects.User;
 import com.example.hunter_game.objects.enums.KeysToSaveEnums;
 import com.example.hunter_game.utils.MySharedPreferences;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.reflect.TypeToken;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -19,7 +19,8 @@ INTENT:
                             "NAME": playerName (String),
                             "GAME_SCREEN": SENSORS/BUTTONS (String),
                             "SCORE": score (int)
-                            "LOCATION": location (String)
+                            "LATITUDE": latitude (Double)
+                            "LONGITUDE": longitude (DOUBLE)
                             "DATE": date (String)
  */
 
@@ -38,6 +39,7 @@ public class TopTenListManager {
 
         //Creates the current user that played the game
         this.user = createUser();
+
     }
 
     public void setBundle(Bundle bundle) {
@@ -103,7 +105,7 @@ public class TopTenListManager {
         return new User().setName(bundle.getString(KeysToSaveEnums.NAME.toString(),""))
                          .setScore(bundle.getInt(KeysToSaveEnums.SCORE.toString(),0))
                          .setDate(getDateUser())
-                         .setLocation(getLocationUser());
+                         .setLocation(makeLocationUser());
     }
 
     private void addUserToList(){
@@ -115,8 +117,10 @@ public class TopTenListManager {
         addUserToList();
     }
 
-    private String getLocationUser(){
-        return "";
+    private MyLocation makeLocationUser(){
+        Log.d("tagg", "LAT bundle: " + bundle.getDouble(KeysToSaveEnums.LATITUDE.toString(), 0));
+        return new MyLocation().setLatitude(bundle.getDouble(KeysToSaveEnums.LATITUDE.toString(), 0))
+                                .setLongitude(bundle.getDouble(KeysToSaveEnums.LONGITUDE.toString(), 0));
     }
 
     private String getDateUser(){

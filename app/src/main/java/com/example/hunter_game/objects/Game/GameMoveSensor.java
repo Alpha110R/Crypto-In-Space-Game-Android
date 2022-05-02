@@ -14,7 +14,7 @@ public class GameMoveSensor{
     private Sensor motionSensor;
     private Context gameContext;
     private static GameMoveSensor me;
-    private CallBack_MotionSensor callBack_motionSensor =null;
+    private CallBack_MotionSensor callBack_motionSensor = null;
 
     public GameMoveSensor(){}
 
@@ -24,7 +24,6 @@ public class GameMoveSensor{
         sensorManager = (SensorManager) gameContext.getSystemService(gameContext.SENSOR_SERVICE);
         motionSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sensorManager.registerListener(motionSensorEventListener, motionSensor, SensorManager.SENSOR_DELAY_NORMAL);
-
     }
 
     public static void initHelper(Context context, CallBack_MotionSensor callBack_motionSensor) {
@@ -36,6 +35,7 @@ public class GameMoveSensor{
     public static GameMoveSensor getMe() {
         return me;
     }
+
     public SensorManager getSensorManager(){
         return sensorManager;
     }

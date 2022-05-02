@@ -8,49 +8,49 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.ListFragment;
 
+import com.example.hunter_game.CallBacks.CallBack_ListUsers;
 import com.example.hunter_game.R;
-import com.example.hunter_game.objects.User;
+import com.example.hunter_game.objects.TopTen.User;
 
 import java.util.ArrayList;
 
-public class Fragment_TTList extends ListFragment implements OnItemClickListener {
-    private AppCompatActivity activity;
+public class Fragment_TTList extends ListFragment {
+    private AppCompatActivity topTenActivity;
     private ArrayAdapter<User> listUserAdapter;
     private ArrayList <User> listUser;
+    private CallBack_ListUsers callBack_listUsers = null;
 
     public Fragment_TTList(){}
 
-    public Fragment_TTList(AppCompatActivity activity, ArrayList <User> listUser) {
-        this.activity = activity;
+    public Fragment_TTList(AppCompatActivity topTenActivity, ArrayList <User> listUser) {
+        this.topTenActivity = topTenActivity;
         this.listUser = listUser;
         Log.d("tag", "check name IN FRAGMENT: " + listUser.get(0).getName());
 
+    }
+    public void setCallBack_ListUsers(CallBack_ListUsers callBack_listUsers){
+        this.callBack_listUsers = callBack_listUsers;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_list, container, false);
-        findViews(view);
-        listUserAdapter = new ArrayAdapter(activity, android.R.layout.simple_list_item_1, listUser);
+        listUserAdapter = new ArrayAdapter(topTenActivity, android.R.layout.simple_list_item_1, listUser);
         setListAdapter(listUserAdapter);
+
         return view;
     }
 
-
-
-
-
-    private void findViews(View view) {
-    }
-
     @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        //TODO: CALLBACK HERE TO activate the google map
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        callBack_listUsers.presentLocationInMap(position);
 
     }
+
 }

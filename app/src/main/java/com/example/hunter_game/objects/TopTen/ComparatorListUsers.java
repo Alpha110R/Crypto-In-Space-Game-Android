@@ -1,7 +1,5 @@
 package com.example.hunter_game.objects.TopTen;
 
-import com.example.hunter_game.objects.User;
-
 import java.util.Comparator;
 
 public class ComparatorListUsers implements Comparator<User> {
