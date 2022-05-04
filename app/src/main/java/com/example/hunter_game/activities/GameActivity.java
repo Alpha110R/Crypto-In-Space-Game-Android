@@ -13,7 +13,6 @@ import com.example.hunter_game.R;
 import com.example.hunter_game.objects.Game.GameManager;
 import com.example.hunter_game.objects.Game.GameMoveSensor;
 import com.example.hunter_game.objects.Game.GameTimer;
-import com.example.hunter_game.objects.Game.GameUiUpdate;
 import com.example.hunter_game.objects.enums.Directions;
 import com.example.hunter_game.objects.enums.KeysToSaveEnums;
 import com.example.hunter_game.objects.enums.TimerStatus;
@@ -28,7 +27,6 @@ public class GameActivity extends AppCompatActivity {
     private ImageView[] game_IMG_hearts;
     private ImageView game_IMG_backGround;
     private GameManager gameManager;
-    private GameUiUpdate gameUiUpdate;
     private GameTimer gameTimer;
     private MaterialTextView game_LBL_score;
     private MaterialButton game_BTN_upArrow,
@@ -60,26 +58,32 @@ public class GameActivity extends AppCompatActivity {
 
         //Check which mode to activate in the game -> SENSORS / BUTTONS
         if(screenType.equals(MainActivity.SENSORS)){
-            game_BTN_upArrow.setVisibility(View.INVISIBLE);
-            game_BTN_rightArrow.setVisibility(View.INVISIBLE);
-            game_BTN_downArrow.setVisibility(View.INVISIBLE);
-            game_BTN_leftArrow.setVisibility(View.INVISIBLE);
+            makeButtonsInvisible();
             GameMoveSensor.getMe().setCallBack_motionSensor(callBack_motionSensor);
             GameMoveSensor.getMe().onResumeSensorManager();
         }
-        else {
-            game_BTN_upArrow.setOnClickListener(view -> gameManager.changeDeerDirection(Directions.UP));
-            game_BTN_rightArrow.setOnClickListener(view -> gameManager.changeDeerDirection(Directions.RIGHT));
-            game_BTN_downArrow.setOnClickListener(view -> gameManager.changeDeerDirection(Directions.DOWN));
-            game_BTN_leftArrow.setOnClickListener(view -> gameManager.changeDeerDirection(Directions.LEFT));
-        }
+        else
+            activateButtonsListeners();
 
         //Set the timer for the game and send him the callback
         gameTimer = new GameTimer(callBack_Timer);
         gameTimer.start();
 
-        //gameUiUpdate = new GameUiUpdate(this, matrix, game_LBL_score, game_IMG_hearts);
         gameManager = new GameManager(rows, columns, this);
+    }
+
+    private void activateButtonsListeners(){
+        game_BTN_upArrow.setOnClickListener(view -> gameManager.changeDeerDirection(Directions.UP));
+        game_BTN_rightArrow.setOnClickListener(view -> gameManager.changeDeerDirection(Directions.RIGHT));
+        game_BTN_downArrow.setOnClickListener(view -> gameManager.changeDeerDirection(Directions.DOWN));
+        game_BTN_leftArrow.setOnClickListener(view -> gameManager.changeDeerDirection(Directions.LEFT));
+    }
+
+    private void makeButtonsInvisible(){
+        game_BTN_upArrow.setVisibility(View.INVISIBLE);
+        game_BTN_rightArrow.setVisibility(View.INVISIBLE);
+        game_BTN_downArrow.setVisibility(View.INVISIBLE);
+        game_BTN_leftArrow.setVisibility(View.INVISIBLE);
     }
 
     ////CALLBACK TIMER
@@ -141,55 +145,21 @@ public class GameActivity extends AppCompatActivity {
         game_IMG_backGround = findViewById(R.id.game_IMG_backGround);
     }
 
-    public void setScoreText(int score){
-        game_LBL_score.setText("" + score);
-    }
-
-    public void updateUINewGame(){
-        updateUIHeart();
-        updateUIMatrix();
-    }
-
-    public void clearIndexInMatrix(){
-        matrix[gameManager.getDeer().getCordinateY()][gameManager.getDeer().getCordinateX()].setVisibility(View.INVISIBLE);
-        matrix[gameManager.getHunter().getCordinateY()][gameManager.getHunter().getCordinateX()].setVisibility(View.INVISIBLE);
-    }
-
-    public void clearIndexCoinInMatrix(){
-        matrix[gameManager.getCoin().getCordinateY()][gameManager.getCoin().getCordinateX()].setVisibility(View.INVISIBLE);
-    }
-
-    public void updateUIMatrix(){
-        if(!newGameFlag)
-            gameManager.move();
-        matrix[gameManager.getDeer().getCordinateY()][gameManager.getDeer().getCordinateX()].setImageResource(gameManager.getResourceToImage("deer",gameManager.getDeer().getDirection()));
-        matrix[gameManager.getHunter().getCordinateY()][gameManager.getHunter().getCordinateX()].setImageResource(gameManager.getResourceToImage("hunter",gameManager.getHunter().getDirection()));
-        matrix[gameManager.getCoin().getCordinateY()][gameManager.getCoin().getCordinateX()].setImageResource(gameManager.getResourceToImage("coin",gameManager.getCoin().getDirection()));
-        matrix[gameManager.getDeer().getCordinateY()][gameManager.getDeer().getCordinateX()].setVisibility(View.VISIBLE);
-        matrix[gameManager.getHunter().getCordinateY()][gameManager.getHunter().getCordinateX()].setVisibility(View.VISIBLE);
-        matrix[gameManager.getCoin().getCordinateY()][gameManager.getCoin().getCordinateX()].setVisibility(View.VISIBLE);
-    }
-
-    private void updateUIHeart() {
-        for (int i = 0; i < game_IMG_hearts.length; i++) {
-            game_IMG_hearts[i].setVisibility(gameManager.getLives() > i ? View.VISIBLE : View.INVISIBLE);
-        }
-    }
-
     public void manageMove(){
         if (gameManager.checkCollisionHunterDeer()) {
-            if (gameManager.getLives() == 3) {
+            gameManager.checkAndUpdateHighestScore();
+            if (gameManager.getLives() == 2) {
                 gameTimer.stopTimer();
                 MySignal.getMe().vibrate();
-                bundle.putInt(KeysToSaveEnums.SCORE.toString(), gameManager.getScore());
+                bundle.putInt(KeysToSaveEnums.SCORE.toString(), gameManager.getHighestScore());
                 bundle.putString(KeysToSaveEnums.PAGE.toString(), KeysToSaveEnums.GAME_PAGE.toString());
                 intent.putExtra(KeysToSaveEnums.BUNDLE.toString(), bundle);
                 startActivity(intent);
-
                 finish();
                 return;
 
             } else {
+                MySignal.getMe().startCollisionMusic();
                 newGameFlag = true;//There was collision
                 clearIndexInMatrix();//Needs to clean before I set the positions
                 gameManager.restartGamePositions();
@@ -213,6 +183,41 @@ public class GameActivity extends AppCompatActivity {
             }
             clearIndexInMatrix();
             updateUIMatrix();
+        }
+    }
+
+    public void setScoreText(int score){
+        game_LBL_score.setText("" + score);
+    }
+
+    public void updateUINewGame(){
+        updateUIHeart();
+        updateUIMatrix();
+    }
+
+    public void clearIndexInMatrix(){
+        matrix[gameManager.getDeer().getCordinateY()][gameManager.getDeer().getCordinateX()].setVisibility(View.INVISIBLE);
+        matrix[gameManager.getHunter().getCordinateY()][gameManager.getHunter().getCordinateX()].setVisibility(View.INVISIBLE);
+    }
+
+    public void clearIndexCoinInMatrix(){
+        matrix[gameManager.getCoin().getCordinateY()][gameManager.getCoin().getCordinateX()].setVisibility(View.INVISIBLE);
+    }
+
+    public void updateUIMatrix(){
+        if(!newGameFlag)
+            gameManager.move();
+        matrix[gameManager.getDeer().getCordinateY()][gameManager.getDeer().getCordinateX()].setImageResource(gameManager.getResourceToImage("miner",gameManager.getDeer().getDirection()));
+        matrix[gameManager.getHunter().getCordinateY()][gameManager.getHunter().getCordinateX()].setImageResource(gameManager.getResourceToImage("cop",gameManager.getHunter().getDirection()));
+        matrix[gameManager.getCoin().getCordinateY()][gameManager.getCoin().getCordinateX()].setImageResource(gameManager.getResourceToImage("coin",gameManager.getCoin().getDirection()));
+        matrix[gameManager.getDeer().getCordinateY()][gameManager.getDeer().getCordinateX()].setVisibility(View.VISIBLE);
+        matrix[gameManager.getHunter().getCordinateY()][gameManager.getHunter().getCordinateX()].setVisibility(View.VISIBLE);
+        matrix[gameManager.getCoin().getCordinateY()][gameManager.getCoin().getCordinateX()].setVisibility(View.VISIBLE);
+    }
+
+    private void updateUIHeart() {
+        for (int i = 0; i < game_IMG_hearts.length; i++) {
+            game_IMG_hearts[i].setVisibility(gameManager.getLives() > i ? View.VISIBLE : View.INVISIBLE);
         }
     }
 

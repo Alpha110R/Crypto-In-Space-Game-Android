@@ -16,6 +16,7 @@ import com.example.hunter_game.objects.TopTen.fragments.Fragment_TTList;
 import com.example.hunter_game.objects.TopTen.TopTenListManager;
 import com.example.hunter_game.objects.enums.KeysToSaveEnums;
 import com.example.hunter_game.utils.BackGround;
+import com.example.hunter_game.utils.MySharedPreferences;
 import com.example.hunter_game.utils.MySignal;
 import com.google.android.material.button.MaterialButton;
 
@@ -47,6 +48,8 @@ INTENT:
         setIntentAndBundle();
         findViews();
         new BackGround(this, topTen_IMG_backGround).setBackGround();
+        MySignal.getMe().activateMusicAvengersTopTen();
+
         topTenListManager = new TopTenListManager(bundle);
 
         /**
@@ -74,13 +77,9 @@ INTENT:
          */
         topTen_BTN_playAgain.setOnClickListener(view -> {
             moveToPageWithBundle(GameActivity.class);
-            finish();
-            return ;
         });
         topTen_BTN_backToMenu.setOnClickListener(view -> {
            moveToPageWithBundle(MainActivity.class);
-            finish();
-            return;
         });
     }
     private CallBack_ListUsers callBack_listUsers = new CallBack_ListUsers() {
@@ -99,8 +98,8 @@ INTENT:
         intent = new Intent(TopTenActivity.this, activity);
         exitPage();
         startActivity(intent);
-
         finish();
+        MySignal.getMe().pauseMusicAvengersTopTen();
         return ;
     }
 
@@ -154,6 +153,7 @@ INTENT:
     @Override
     protected void onStop() {
         super.onStop();
+        finish();
     }
 
     @Override

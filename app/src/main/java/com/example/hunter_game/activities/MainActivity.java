@@ -5,8 +5,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -59,14 +59,13 @@ public class MainActivity extends AppCompatActivity {
     public LocationRequest locationRequest;
 
     //TODO: Make icon and put it above the text input
-    //TODO: Text style for all the app
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         findViews();
         new BackGround(this, main_IMG_backGround).setBackGround();
-
+        MySignal.getMe().activateMusicSpongebobWelcome();
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         locationRequest = LocationRequest.create();
         locationRequest.setInterval(4000);
@@ -89,7 +88,9 @@ public class MainActivity extends AppCompatActivity {
                 setPopUp().show();
             }
         });
-        main_BTN_topTen.setOnClickListener(view -> { moveToTopTenPage(); });
+        main_BTN_topTen.setOnClickListener(view -> {
+            moveToTopTenPage();
+        });
     }
 
     private void findViews() {
@@ -120,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
         if(MySharedPreferences.getMe().getArray(KeysToSaveEnums.LIST_USERS.toString(), token).size() == 0)
             MySignal.getMe().makeToastMessage("You are the first player, lets set the bar!");
         else{
+            MySignal.getMe().pauseMusicSpongebobWelcome();
             moveToPageWithBundle(TopTenActivity.class);
             bundle.putString(KeysToSaveEnums.PAGE.toString(), KeysToSaveEnums.MAIN_PAGE.toString());
             intent.putExtra(KeysToSaveEnums.BUNDLE.toString(), bundle);
@@ -150,20 +152,22 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton("Sensors", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        bundle.putString(KeysToSaveEnums.GAME_SCREEN.toString(), SENSORS);
-                        intent.putExtra(KeysToSaveEnums.BUNDLE.toString(), bundle);
-                        startActivity(intent);
+                        moveToGamePageWithScreenType(SENSORS);
                     }
                 })
                 .setNegativeButton("Buttons", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        bundle.putString(KeysToSaveEnums.GAME_SCREEN.toString(), BUTTONS);
-                        intent.putExtra(KeysToSaveEnums.BUNDLE.toString(), bundle);
-                        startActivity(intent);
+                        moveToGamePageWithScreenType(BUTTONS);
                     }
                 });
         return selectGameScreen;
+    }
+    private void moveToGamePageWithScreenType(String screenType){
+        bundle.putString(KeysToSaveEnums.GAME_SCREEN.toString(), screenType);
+        intent.putExtra(KeysToSaveEnums.BUNDLE.toString(), bundle);
+        startActivity(intent);
+        MySignal.getMe().pauseMusicSpongebobWelcome();
     }
 
     /**
@@ -216,113 +220,3 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
-/*
- ///////////////////////////
-/*
-    private void checkSettingsAndStartLocationUpdates() {
-        LocationSettingsRequest request = new LocationSettingsRequest.Builder()
-                .addLocationRequest(locationRequest).build();
-        SettingsClient client = LocationServices.getSettingsClient(this);
-
-        Task<LocationSettingsResponse> locationSettingsResponseTask = client.checkLocationSettings(request);
-        locationSettingsResponseTask.addOnSuccessListener(locationSettingsResponse -> {
-            //Settings of device are satisfied and we can start location updates
-            startLocationUpdates();
-        });
-        locationSettingsResponseTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                if (e instanceof ResolvableApiException) {
-                    ResolvableApiException apiException = (ResolvableApiException) e;
-                    try {
-                        apiException.startResolutionForResult(MainActivity.this, 1001);
-                    } catch (IntentSender.SendIntentException ex) {
-                        ex.printStackTrace();
-                    }
-                }
-            }
-        });
-    }
-
-
-    private void startLocationUpdates() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper());
-    }
-
-    private void stopLocationUpdates() {
-        fusedLocationProviderClient.removeLocationUpdates(locationCallback);
-    }
-
-    private void getLastLocation() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        Task<Location> locationTask = fusedLocationProviderClient.getLastLocation();
-        locationTask.addOnSuccessListener(location -> {
-            if (location != null) {
-                //We have a location
-                theLocation = location;
-            }
-        });
-    }
-
-    private void askLocationPermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-                ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST_CODE);
-            } else {
-                ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST_CODE);
-            }
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == LOCATION_REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission granted
-                getLastLocation();
-                checkSettingsAndStartLocationUpdates();
-            } else {
-                //Permission not granted
-                showLocationAlert("Application must use device location.\nPlease allow it.\n");
-            }
-        }
-    }
-
-    private void showLocationAlert(String msg) {
-        new AlertDialog.Builder(this)
-                .setTitle("Device location")
-                .setMessage(msg)
-                // Specifying a listener allows you to take an action before dismissing the dialog.
-                // The dialog is automatically dismissed when a dialog button is clicked.
-                .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                })
-                // A null listener allows the button to dismiss the dialog and take no further action.
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
-    }
-
-*/
-////////////////

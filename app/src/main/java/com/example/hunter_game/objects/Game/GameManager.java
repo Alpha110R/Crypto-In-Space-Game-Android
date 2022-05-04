@@ -12,8 +12,9 @@ import java.util.Locale;
 public class GameManager {
     private ItemInGame hunter, deer, coin;
     private MoveItems moveItems;
-    private int score =0;
-    private int lives =3,
+    private int score =0,
+                lives =3,
+                highestScore=0,
                 rows,
                 columns;
     private Context context;
@@ -34,6 +35,16 @@ public class GameManager {
     public GameManager (){}
 
     public MoveItems getMoveItems(){return moveItems;}
+
+    public void setHighestScore(int highestScore){ this.highestScore = highestScore; }
+
+    public int getHighestScore(){ return highestScore; }
+
+    public void checkAndUpdateHighestScore(){
+        if(score > highestScore)
+            highestScore = score;
+    }
+
     public int getScore() {
         return score;
     }

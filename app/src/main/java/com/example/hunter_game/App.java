@@ -15,7 +15,5 @@ public class App extends Application {
         MySharedPreferences.initHelper(this);
         MySignal.initHelper(this);
         GameMoveSensor.initHelper(this);
-
-
     }
 }
