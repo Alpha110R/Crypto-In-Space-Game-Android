@@ -1,56 +1,48 @@
-package com.example.hunter_game;
-import java.util.Locale;
+package com.example.hunter_game.objects.Game;
+
+import com.example.hunter_game.objects.Game.ObjectInGame.Deer;
+import com.example.hunter_game.objects.Game.ObjectInGame.ItemInGame;
+import com.example.hunter_game.objects.enums.Directions;
+
 import java.util.Random;
 
-public class GameManager {
-    private Deer deer;
-    private Hunter hunter;
-    private int score =0;
-    private int lives =3,
-                rows,
-                columns;
+public class MoveItems {
+    private ItemInGame hunter, deer, coin;
+    private int rows, columns;
 
-    public GameManager(){}
+    public MoveItems(){}
 
-    public GameManager (int rows, int columns){
-        this.deer = new Deer().setCordinateX(columns/2).setCordinateY(rows-1).setDirection(Directions.UP);//Start position
-        this.hunter = new Hunter().setCordinateX(columns/2).setCordinateY(0);//Start position
-        this.rows=rows;
-        this.columns=columns;
+    public MoveItems setHunter(ItemInGame hunter) {
+        this.hunter = hunter;
+        return this;
     }
 
-    public int getScore() {
-        return score;
+    public MoveItems setDeer(ItemInGame deer) {
+        this.deer = deer;
+        return this;
     }
 
-    public void addToScore() {
-        score += 1;
+    public MoveItems setCoin(ItemInGame coin) {
+        this.coin = coin;
+        return this;
     }
 
-    public void restartScore(){ score =0; }
-
-    public Deer getDeer() {
-        return deer;
+    public MoveItems setRows(int rows) {
+        this.rows = rows;
+        return this;
     }
 
-    public Hunter getHunter() {
-        return hunter;
+    public MoveItems setColumns(int columns) {
+        this.columns = columns;
+        return this;
     }
 
-    public int getLives() {
-        return lives;
-    }
-
-    public void reduceLives() { lives--; }
-
-    public void changeDeerDirection(Directions direction){
-        deer.setDirection(direction);
-    }
-
-    public void move(){//Responsible to check if the move is valid and to move the objects -> setPosition
+    public void moveDeer(){
         if(checkBounderies(deer.getCordinateX(), deer.getCordinateY(),deer.getDirection())){
             moveIndexByDirection(deer, deer.getCordinateX(),deer.getCordinateY(),deer.getDirection());
         }
+    }
+    public void moveHunter(){
         int random = new Random().nextInt((4));//Random for the hunter movements
         hunter.setDirection(Directions.values()[random]);
         if(checkBounderies(hunter.getCordinateX(), hunter.getCordinateY(),hunter.getDirection())) {
@@ -62,6 +54,24 @@ public class GameManager {
                 hunter.setCordinateX(columns / 2);
             }
         }
+    }
+
+    public void moveCoin(){
+        int randomX;
+        int randomY;
+        do{
+            randomX = new Random().nextInt((5));
+            randomY = new Random().nextInt((7));
+        }while (checkCollisionCoinBeforeMove(randomX, randomY));
+        coin.setCordinateX(randomX);
+        coin.setCordinateY(randomY);
+    }
+
+    public Boolean checkCollisionCoinBeforeMove(int x, int y){
+        if((x == deer.getCordinateX() && y == deer.getCordinateY()) ||
+                (x == hunter.getCordinateX() && y == hunter.getCordinateY()))
+            return true;
+        return false;
     }
 
     public boolean checkBounderies(int x, int y, Directions direction){
@@ -90,23 +100,23 @@ public class GameManager {
         if(obj instanceof Deer)
             moveIndexByDirectionDeer(x,y,direction);
         else
-            moveIndexByDirectionHunter(x,y,direction);
+            moveIndexByDirectionHunter(x, y, direction);
     }
 
     public void moveIndexByDirectionDeer(int x, int y, Directions direction){
         switch (direction){
             case UP:
-                    deer.setCordinateY(--y);
-                    break;
+                deer.setCordinateY(--y);
+                break;
             case RIGHT:
-                    deer.setCordinateX(++x);
-                    break;
+                deer.setCordinateX(++x);
+                break;
             case DOWN:
-                    deer.setCordinateY(++y);
-                    break;
+                deer.setCordinateY(++y);
+                break;
             case LEFT:
-                    deer.setCordinateX(--x);
-                    break;
+                deer.setCordinateX(--x);
+                break;
         }
     }
 
@@ -125,14 +135,5 @@ public class GameManager {
                 hunter.setCordinateX(--x);
                 break;
         }
-    }
-
-    public boolean checkCollision(){
-        return deer.getCordinateX() == hunter.getCordinateX() && deer.getCordinateY() == hunter.getCordinateY();
-    }
-
-    public void restartGamePositions(){
-        deer.setCordinateX(columns/2).setCordinateY(rows-1).setDirection(Directions.UP);
-        hunter.setCordinateX(columns/2).setCordinateY(0).setDirection(Directions.DOWN);
     }
 }
