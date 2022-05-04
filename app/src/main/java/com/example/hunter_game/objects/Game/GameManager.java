@@ -28,31 +28,21 @@ public class GameManager {
         this.columns=columns;
         this.context = context;
         moveItems = new MoveItems().setRows(rows).setColumns(columns).setDeer(deer).setHunter(hunter).setCoin(coin);
+        moveItems.moveCoin();//Start from random position in matrix
     }
 
     public GameManager (){}
 
-    public GameManager setRows(int rows) {
-        this.rows = rows;
-        return this;
-    }
-
-    public GameManager setColumns(int columns) {
-        this.columns = columns;
-        return this;
-    }
     public MoveItems getMoveItems(){return moveItems;}
     public int getScore() {
         return score;
     }
 
-    public void addToScoreOne() { score += 1;}
-
-    public void addToScoreTen() {
-        score += 10;
-    }
-
     public void restartScore(){ score =0; }
+
+    public void addToScore(int number){
+        score += number;
+    }
 
     public ItemInGame getDeer() {
         return deer;

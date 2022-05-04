@@ -31,9 +31,9 @@ public class MySignal {
 
     public void vibrate() {
         if (Build.VERSION.SDK_INT >= 26) {
-            ((Vibrator) appContext.getSystemService(VIBRATOR_SERVICE)).vibrate(VibrationEffect.createOneShot(40, VibrationEffect.DEFAULT_AMPLITUDE));
+            ((Vibrator) appContext.getSystemService(VIBRATOR_SERVICE)).vibrate(VibrationEffect.createOneShot(80, VibrationEffect.DEFAULT_AMPLITUDE));
         } else {
-            ((Vibrator) appContext.getSystemService(VIBRATOR_SERVICE)).vibrate(40);
+            ((Vibrator) appContext.getSystemService(VIBRATOR_SERVICE)).vibrate(80);
         }
     }
 }

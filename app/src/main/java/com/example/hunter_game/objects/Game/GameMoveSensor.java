@@ -18,35 +18,32 @@ public class GameMoveSensor{
 
     public GameMoveSensor(){}
 
-    private GameMoveSensor(Context context, CallBack_MotionSensor callBack_motionSensor) {
+    private GameMoveSensor(Context context) {
         this.gameContext = context;
-        this.callBack_motionSensor = callBack_motionSensor;
         sensorManager = (SensorManager) gameContext.getSystemService(gameContext.SENSOR_SERVICE);
         motionSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sensorManager.registerListener(motionSensorEventListener, motionSensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
-    public static void initHelper(Context context, CallBack_MotionSensor callBack_motionSensor) {
+    public static void initHelper(Context context) {
         if (me == null) {
-            me = new GameMoveSensor(context.getApplicationContext(), callBack_motionSensor);
+            me = new GameMoveSensor(context);
         }
+    }
+    public void setCallBack_motionSensor(CallBack_MotionSensor callBack_motionSensor){
+        this.callBack_motionSensor = callBack_motionSensor;
+
     }
 
     public static GameMoveSensor getMe() {
         return me;
     }
 
-    public SensorManager getSensorManager(){
-        return sensorManager;
-    }
-
-
     private SensorEventListener motionSensorEventListener = new SensorEventListener() {
         @Override
         public void onSensorChanged(SensorEvent sensorEvent) {
 
             int x = (int) sensorEvent.values[0];
-            int y = (int) sensorEvent.values[1];
             int z = (int) sensorEvent.values[2];
             if (callBack_motionSensor != null) {
                 if (x > 1) {

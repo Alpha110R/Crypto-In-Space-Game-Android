@@ -6,10 +6,11 @@ import com.example.hunter_game.CallBacks.CallBack_Timer;
 
 public class GameTimer {
     private final int DELAY = 1000;
+    private Handler handler;
+    private int timer;
 
     public GameTimer (){}
 
-    private int timer = 0;
     private CallBack_Timer callBack_timer = null;
 
     public GameTimer (CallBack_Timer callBack_timer) {
@@ -17,7 +18,7 @@ public class GameTimer {
     }
 
     public void start() {
-        final Handler handler = new Handler();
+        handler = new Handler();
 
         handler.postDelayed(new Runnable() {
             public void run() {
@@ -32,6 +33,18 @@ public class GameTimer {
                 }
                 handler.postDelayed(this, DELAY);
             }
+
         }, DELAY);
+    }
+
+    public void restartTimer(){
+        timer = 0;
+    }
+
+    /**
+     * Stop the timer
+     */
+    public void stopTimer(){
+        handler.removeCallbacksAndMessages(null);
     }
 }

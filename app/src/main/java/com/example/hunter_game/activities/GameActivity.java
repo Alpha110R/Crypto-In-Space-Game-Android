@@ -3,9 +3,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.hunter_game.CallBacks.CallBack_MotionSensor;
 import com.example.hunter_game.CallBacks.CallBack_Timer;
@@ -18,7 +18,7 @@ import com.example.hunter_game.objects.enums.Directions;
 import com.example.hunter_game.objects.enums.KeysToSaveEnums;
 import com.example.hunter_game.objects.enums.TimerStatus;
 import com.example.hunter_game.utils.BackGround;
-import com.example.hunter_game.utils.MySharedPreferences;
+import com.example.hunter_game.utils.MySignal;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 
@@ -38,7 +38,7 @@ public class GameActivity extends AppCompatActivity {
     private TimerStatus timerStatus = TimerStatus.OFF;
     private ImageView [][] matrix;
     private boolean newGameFlag = true;//Import flag to sign if this round of the timer is a new game or not.
-    //If it is a new game, I don't want to move at the first second and wait with the score
+                                        //If it is a new game, I don't want to move at the first second and wait with the score
     private Intent intent;
     private Bundle bundle;
     private String screenType;
@@ -64,7 +64,7 @@ public class GameActivity extends AppCompatActivity {
             game_BTN_rightArrow.setVisibility(View.INVISIBLE);
             game_BTN_downArrow.setVisibility(View.INVISIBLE);
             game_BTN_leftArrow.setVisibility(View.INVISIBLE);
-            GameMoveSensor.initHelper(this, callBack_motionSensor);
+            GameMoveSensor.getMe().setCallBack_motionSensor(callBack_motionSensor);
             GameMoveSensor.getMe().onResumeSensorManager();
         }
         else {
@@ -179,14 +179,16 @@ public class GameActivity extends AppCompatActivity {
     public void manageMove(){
         if (gameManager.checkCollisionHunterDeer()) {
             if (gameManager.getLives() == 3) {
-                if(!nextPage) {
-                    bundle.putInt(KeysToSaveEnums.SCORE.toString(), gameManager.getScore());
-                    bundle.putString(KeysToSaveEnums.PAGE.toString(), KeysToSaveEnums.GAME_PAGE.toString());
-                    intent.putExtra(KeysToSaveEnums.BUNDLE.toString(), bundle);
-                    startActivity(intent);
-                    nextPage=true;
-                }
+                gameTimer.stopTimer();
+                MySignal.getMe().vibrate();
+                bundle.putInt(KeysToSaveEnums.SCORE.toString(), gameManager.getScore());
+                bundle.putString(KeysToSaveEnums.PAGE.toString(), KeysToSaveEnums.GAME_PAGE.toString());
+                intent.putExtra(KeysToSaveEnums.BUNDLE.toString(), bundle);
+                startActivity(intent);
+
                 finish();
+                return;
+
             } else {
                 newGameFlag = true;//There was collision
                 clearIndexInMatrix();//Needs to clean before I set the positions
@@ -194,14 +196,19 @@ public class GameActivity extends AppCompatActivity {
                 gameManager.reduceLives();
                 gameManager.restartScore();
                 updateUINewGame();
-                Toast.makeText(this, "You only have " + gameManager.getLives() + " more times to play", Toast.LENGTH_LONG).show();
+                MySignal.getMe().makeToastMessage("You only have " + gameManager.getLives() + " more times to play");
             }
         } else {
+            /**
+             * Collision with coin
+             */
             if (gameManager.checkCollisionHunterCoin() || gameManager.checkCollisionDeerCoin()) {
                 if (gameManager.checkCollisionDeerCoin()) {
-                    gameManager.addToScoreTen();
+                    MySignal.getMe().vibrate();
+                    gameManager.addToScore(10);
                     setScoreText(gameManager.getScore());
                 }
+                gameTimer.restartTimer();
                 moveCoinGameManager();
             }
             clearIndexInMatrix();
@@ -216,19 +223,44 @@ public class GameActivity extends AppCompatActivity {
 
     public void updateScore() {
         if(!newGameFlag)
-            gameManager.addToScoreOne();
+            gameManager.addToScore(1);
         setScoreText(gameManager.getScore());
         newGameFlag = false;
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
     }
+
     @Override
     protected void onPause() {
         super.onPause();
-        //GameMoveSensor.getMe().onPauseSensorManager();
+        finish();
     }
+
+    /**
+     * Stop the Sensors + Timer
+     */
+    @Override
+    protected void onStop() {
+        super.onStop();
+        GameMoveSensor.getMe().onPauseSensorManager();
+        gameTimer.stopTimer();
+        Log.d("tagg", "STOP");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("tagg", "SEDTROY STAGE FUNCTIUON");
+
+    }
+
 }

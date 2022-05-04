@@ -2,12 +2,14 @@ package com.example.hunter_game.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.hunter_game.CallBacks.CallBack_ListUsers;
+import com.example.hunter_game.objects.Game.GameMoveSensor;
 import com.example.hunter_game.objects.TopTen.fragments.FragmentMap;
 import com.example.hunter_game.R;
 import com.example.hunter_game.objects.TopTen.fragments.Fragment_TTList;
@@ -73,12 +75,12 @@ INTENT:
         topTen_BTN_playAgain.setOnClickListener(view -> {
             moveToPageWithBundle(GameActivity.class);
             finish();
-
+            return ;
         });
         topTen_BTN_backToMenu.setOnClickListener(view -> {
            moveToPageWithBundle(MainActivity.class);
             finish();
-
+            return;
         });
     }
     private CallBack_ListUsers callBack_listUsers = new CallBack_ListUsers() {
@@ -94,12 +96,12 @@ INTENT:
      * @param activity Class
      */
     public void moveToPageWithBundle(Class activity){
-        if(!flagNextPage) {
-            intent = new Intent(TopTenActivity.this, activity);
-            exitPage();
-            startActivity(intent);
-        }
+        intent = new Intent(TopTenActivity.this, activity);
+        exitPage();
+        startActivity(intent);
+
         finish();
+        return ;
     }
 
     /**
@@ -148,8 +150,15 @@ INTENT:
         super.onPause();
         topTenListManager.saveTopTenListUsersToSP();
     }
-    public TopTenListManager getTopTenListManager(){
-        return topTenListManager;
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }
 
