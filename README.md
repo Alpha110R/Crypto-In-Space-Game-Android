@@ -1,4 +1,4 @@
-# Hunter_Game_Android
+# Crypto_In_Space_Game_Android
 First project in android. Fun and easy to play.
 
 Requirements:
