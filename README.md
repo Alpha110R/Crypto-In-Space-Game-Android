@@ -1,5 +1,5 @@
 # Crypto_In_Space_Game_Android
-First project in android. Fun and easy to play.
+
 ![ic_launcher](https://user-images.githubusercontent.com/68230416/167035243-5734f5f4-9c6d-4dfb-8ac6-f150afa4cc45.png)
 
 A short video to demonstrate the game: 
