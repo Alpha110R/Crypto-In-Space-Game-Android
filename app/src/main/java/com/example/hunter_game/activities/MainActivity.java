@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         findViews();
         new BackGround(this, main_IMG_backGround).setBackGround();
-        MySignal.getMe().activateMusicSpongebobWelcome();
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         locationRequest = LocationRequest.create();
         locationRequest.setInterval(4000);
@@ -181,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        MySignal.getMe().activateMusicSpongebobWelcome();
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             myLocationManager.getLastLocation();
             myLocationManager.checkSettingsAndStartLocationUpdates();
