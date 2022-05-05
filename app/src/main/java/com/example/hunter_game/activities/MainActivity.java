@@ -167,7 +167,6 @@ public class MainActivity extends AppCompatActivity {
         bundle.putString(KeysToSaveEnums.GAME_SCREEN.toString(), screenType);
         intent.putExtra(KeysToSaveEnums.BUNDLE.toString(), bundle);
         startActivity(intent);
-        MySignal.getMe().pauseMusicSpongebobWelcome();
     }
 
     /**
@@ -188,6 +187,12 @@ public class MainActivity extends AppCompatActivity {
         } else {
             myLocationManager.askLocationPermission();
         }
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        MySignal.getMe().pauseMusicSpongebobWelcome();
     }
 
     @Override

@@ -99,7 +99,6 @@ INTENT:
         exitPage();
         startActivity(intent);
         finish();
-        MySignal.getMe().pauseMusicAvengersTopTen();
         return ;
     }
 
@@ -148,6 +147,7 @@ INTENT:
     protected void onPause() {
         super.onPause();
         topTenListManager.saveTopTenListUsersToSP();
+        MySignal.getMe().pauseMusicAvengersTopTen();
     }
 
     @Override
