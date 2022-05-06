@@ -8,7 +8,7 @@ https://user-images.githubusercontent.com/68230416/167035040-064c8db6-6805-49dc-
 
 Link for more explanation about the game:
 
-https://youtu.be/Ychtb-h9EgA
+https://youtu.be/YodQ_pplvZ8
 
 Menu:
 
