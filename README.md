@@ -19,7 +19,7 @@
 
 https://user-images.githubusercontent.com/68230416/167035040-064c8db6-6805-49dc-bd7f-b679ea118069.mp4
 
-# :headphones: Link to a further demo and game explanation:
+# :headphones: Link to a further demo:
 
 https://youtu.be/5vrBNHqk640
 
