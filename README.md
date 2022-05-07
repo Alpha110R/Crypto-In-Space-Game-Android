@@ -15,7 +15,7 @@
 - 9️⃣ Using App class for Singeltons
 - 🔟 Motion Sensors
 
-# :video_game: A short video to demonstrate the game: 
+# :video_game: A short game demonstration: 
 
 https://user-images.githubusercontent.com/68230416/167035040-064c8db6-6805-49dc-bd7f-b679ea118069.mp4
 
