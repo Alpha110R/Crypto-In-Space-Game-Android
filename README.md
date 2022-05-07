@@ -1,22 +1,44 @@
 # Crypto_In_Space_Game_Android
-First project in android. Fun and easy to play.
 
-Requirements:
-1) Matrix of images built in Linear Layout
-2) The map will show two elements: hunter and deer.
-3) Below there will be four direction buttons - each click changes the direction of the deer.
-4) Every second the two elements move.
-5) After three disqualifications the game will end and the screen will close.
-6) At the top right there is a score that goes up every second.
+![ic_launcher](https://user-images.githubusercontent.com/68230416/167035243-5734f5f4-9c6d-4dfb-8ac6-f150afa4cc45.png)
 
-A short video to explain the game: 
+# :computer: So what's in the project:question:
 
-https://user-images.githubusercontent.com/68230416/163005224-ba634be6-13a4-4440-8fec-5a25d1ab5c26.mp4
+- 1️⃣ OOP + SOLID
+- 2️⃣ Glide library
+- 3️⃣ Google Maps API + Gson
+- 4️⃣ CallBacks
+- 5️⃣ ListView + ArrayAdapter
+- 6️⃣ Shared Preferences
+- 7️⃣ Intent + Bundle
+- 8️⃣ Vibrations + Music + Toast Messages
+- 9️⃣ Using App class for Singeltons
+- 🔟 Motion Sensors
 
-Start position:
+# :video_game: A short game demonstration: 
 
-![image](https://user-images.githubusercontent.com/68230416/163546762-54d279a2-1913-483b-9437-bf93fbd81d18.png)
+https://user-images.githubusercontent.com/68230416/167035040-064c8db6-6805-49dc-bd7f-b679ea118069.mp4
 
-After disqualification:
+# :headphones: Link to a further demo:
 
-![image](https://user-images.githubusercontent.com/68230416/163565294-1951e674-6ff2-46b9-99ad-eeae5c65a704.png)
+https://youtu.be/5vrBNHqk640
+
+# :book: Generic class diagram overview of the application's code:
+
+![Crypto In Space - Class Diagram](https://user-images.githubusercontent.com/68230416/167261385-a239d7b3-7f39-420e-9310-7a5c25ccc731.jpg)
+
+# Menu:
+
+![menu](https://user-images.githubusercontent.com/68230416/167035899-722ea16e-8306-4921-a776-cdb0e87fdeda.png)
+
+# Game with buttons:
+
+![Button Game](https://user-images.githubusercontent.com/68230416/167035937-f0ecb158-e32e-4dbe-8cbd-72075fe77908.png)
+
+# Game with sensors:
+
+![Sensonrs game](https://user-images.githubusercontent.com/68230416/167035958-723df551-802f-4ae5-a24d-2a7859aa4a89.png)
+
+# Top Ten page:
+
+![Top Ten after clicked](https://user-images.githubusercontent.com/68230416/167036493-4702670c-90b5-4859-bf1b-85d517aeaba4.png)
