@@ -10,7 +10,7 @@ Link for more explanation about the game:
 
 https://youtu.be/5vrBNHqk640
 
-Generic overview class diagram of the application's code:
+Generic class diagram overview of the application's code:
 
 ![Crypto In Space Class Diagram](https://user-images.githubusercontent.com/68230416/167259349-bc5608d2-94fb-4143-b90a-9014d3e94bc3.jpg)
 
