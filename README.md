@@ -4,7 +4,8 @@
 
 :computer: So what's in the project:question:
 
-1️⃣ OOP + SOLID\n
+1️⃣ OOP + SOLID
+
 2️⃣ Glide library
 
 3️⃣ Google Maps API + Gson
@@ -22,6 +23,9 @@
 9️⃣ Using App class for Singeltons
 
 🔟 Motion Sensors
+
+
+
 
 
 :video_game: A short video to demonstrate the game: 
