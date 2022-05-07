@@ -4,8 +4,7 @@
 
 :computer: So what's in the project:question:
 
-1️⃣ OOP + SOLID
-
+1️⃣ OOP + SOLID\n
 2️⃣ Glide library
 
 3️⃣ Google Maps API + Gson
