@@ -2,17 +2,30 @@
 
 ![ic_launcher](https://user-images.githubusercontent.com/68230416/167035243-5734f5f4-9c6d-4dfb-8ac6-f150afa4cc45.png)
 
-A short video to demonstrate the game: 
+:computer: So what's in the project:question:
+1️⃣ OOP + SOLID
+2️⃣ Glide library
+3️⃣ Google Maps API + Gson
+4️⃣ CallBacks
+5️⃣ ListView + ArrayAdapter
+6️⃣ Shared Preferences
+7️⃣ Intent + Bundle
+8️⃣ Vibrations + Music + Toast Messages
+9️⃣ Using App class for Singeltons
+🔟 Motion Sensors
+
+
+:video_game: A short video to demonstrate the game: 
 
 https://user-images.githubusercontent.com/68230416/167035040-064c8db6-6805-49dc-bd7f-b679ea118069.mp4
 
-Link for more explanation about the game:
+:headphones: Link for more explanation about the game:
 
 https://youtu.be/5vrBNHqk640
 
-Generic class diagram overview of the application's code:
+:book: Generic class diagram overview of the application's code:
 
-![Crypto In Space Class Diagram](https://user-images.githubusercontent.com/68230416/167259349-bc5608d2-94fb-4143-b90a-9014d3e94bc3.jpg)
+![Crypto In Space - Class Diagram](https://user-images.githubusercontent.com/68230416/167261385-a239d7b3-7f39-420e-9310-7a5c25ccc731.jpg)
 
 Menu:
 
