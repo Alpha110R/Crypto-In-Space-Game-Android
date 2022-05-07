@@ -12,7 +12,7 @@ https://youtu.be/5vrBNHqk640
 
 Generic overview class diagram of the application's code:
 
-![UML Diagram - Crypto In Space](https://user-images.githubusercontent.com/68230416/167258539-d75e7958-d639-4ccb-b0dd-3d40a5cf649d.jpg)
+![Crypto In Space Class Diagram](https://user-images.githubusercontent.com/68230416/167259349-bc5608d2-94fb-4143-b90a-9014d3e94bc3.jpg)
 
 Menu:
 
