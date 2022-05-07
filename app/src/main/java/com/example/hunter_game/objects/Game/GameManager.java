@@ -22,21 +22,19 @@ public class GameManager {
     //If it is a new game, I don't want to move at the first second and wait with the score
 
     public GameManager(int rows, int columns, Context context){
-        this.deer = new Deer().setCordinateX(columns/2).setCordinateY(rows-1).setDirection(Directions.UP);//Start position
-        this.hunter = new Hunter().setCordinateX(columns/2).setCordinateY(0);//Start position
+        this.deer = new Deer().setCoordinateX(columns/2).setCoordinateY(rows-1).setDirection(Directions.UP);//Start position
+        this.hunter = new Hunter().setCoordinateX(columns/2).setCoordinateY(0);//Start position
         this.coin = new Coin();
         this.rows=rows;
         this.columns=columns;
         this.context = context;
-        moveItems = new MoveItems().setRows(rows).setColumns(columns).setDeer(deer).setHunter(hunter).setCoin(coin);
-        moveItems.moveCoin();//Start from random position in matrix
+        moveItems = new MoveItems().setRows(rows).setColumns(columns).setHunter(hunter).setDeer(deer);
+        moveItems.moveCoin(coin);//Start from random position in matrix
     }
 
     public GameManager (){}
 
     public MoveItems getMoveItems(){return moveItems;}
-
-    public void setHighestScore(int highestScore){ this.highestScore = highestScore; }
 
     public int getHighestScore(){ return highestScore; }
 
@@ -84,25 +82,25 @@ public class GameManager {
     }
 
     public void move(){
-        moveItems.moveDeer();
-        moveItems.moveHunter();
+        moveItems.moveDeer(deer);
+        moveItems.moveHunter(hunter);
     }
 
     public boolean checkCollisionHunterDeer(){
-        return deer.getCordinateX() == hunter.getCordinateX() && deer.getCordinateY() == hunter.getCordinateY();
+        return deer.getCoordinateX() == hunter.getCoordinateX() && deer.getCoordinateY() == hunter.getCoordinateY();
     }
 
     public boolean checkCollisionHunterCoin() {
-        return coin.getCordinateX() == hunter.getCordinateX() && coin.getCordinateY() == hunter.getCordinateY();
+        return coin.getCoordinateX() == hunter.getCoordinateX() && coin.getCoordinateY() == hunter.getCoordinateY();
     }
 
     public boolean checkCollisionDeerCoin() {
-        return coin.getCordinateX() == deer.getCordinateX() && coin.getCordinateY() == deer.getCordinateY();
+        return coin.getCoordinateX() == deer.getCoordinateX() && coin.getCoordinateY() == deer.getCoordinateY();
     }
 
 
         public void restartGamePositions(){
-        deer.setCordinateX(columns/2).setCordinateY(rows-1).setDirection(Directions.UP);
-        hunter.setCordinateX(columns/2).setCordinateY(0).setDirection(Directions.DOWN);
+        deer.setCoordinateX(columns/2).setCoordinateY(rows-1).setDirection(Directions.UP);
+        hunter.setCoordinateX(columns/2).setCoordinateY(0).setDirection(Directions.DOWN);
     }
 }

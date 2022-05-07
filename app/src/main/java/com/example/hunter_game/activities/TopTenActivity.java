@@ -29,7 +29,6 @@ public class TopTenActivity extends AppCompatActivity{
     private MaterialButton topTen_BTN_playAgain,
                            topTen_BTN_backToMenu;
     private TopTenListManager topTenListManager;
-    private boolean flagNextPage = false;
 /**
 INTENT:
       "BUNDLE":  BUNDLE:
@@ -60,7 +59,7 @@ INTENT:
 
         checkAndUpdateUserToEnterTopTenList();
         fragmentList = new Fragment_TTList(this, topTenListManager.getListUsers());
-        fragmentMap = new FragmentMap(topTenListManager.getUser().getLocation());
+        fragmentMap = new FragmentMap();
         fragmentList.setCallBack_ListUsers(callBack_listUsers);
         getSupportFragmentManager()
                                     .beginTransaction()
@@ -109,7 +108,6 @@ INTENT:
     public void exitPage(){
         bundle.putInt(KeysToSaveEnums.SCORE.toString(), 0);
         intent.putExtra(KeysToSaveEnums.BUNDLE.toString(), bundle);
-        flagNextPage = true;
     }
 
     /**

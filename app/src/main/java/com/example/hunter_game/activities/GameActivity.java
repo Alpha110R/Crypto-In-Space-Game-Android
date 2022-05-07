@@ -21,7 +21,9 @@ import com.example.hunter_game.utils.MySignal;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 
+
 public class GameActivity extends AppCompatActivity {
+
     private final int rows = 7;
     private final int columns = 5;
     private ImageView[] game_IMG_hearts;
@@ -196,23 +198,23 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void clearIndexInMatrix(){
-        matrix[gameManager.getDeer().getCordinateY()][gameManager.getDeer().getCordinateX()].setVisibility(View.INVISIBLE);
-        matrix[gameManager.getHunter().getCordinateY()][gameManager.getHunter().getCordinateX()].setVisibility(View.INVISIBLE);
+        matrix[gameManager.getDeer().getCoordinateY()][gameManager.getDeer().getCoordinateX()].setVisibility(View.INVISIBLE);
+        matrix[gameManager.getHunter().getCoordinateY()][gameManager.getHunter().getCoordinateX()].setVisibility(View.INVISIBLE);
     }
 
     public void clearIndexCoinInMatrix(){
-        matrix[gameManager.getCoin().getCordinateY()][gameManager.getCoin().getCordinateX()].setVisibility(View.INVISIBLE);
+        matrix[gameManager.getCoin().getCoordinateY()][gameManager.getCoin().getCoordinateX()].setVisibility(View.INVISIBLE);
     }
 
     public void updateUIMatrix(){
         if(!newGameFlag)
             gameManager.move();
-        matrix[gameManager.getDeer().getCordinateY()][gameManager.getDeer().getCordinateX()].setImageResource(gameManager.getResourceToImage("miner",gameManager.getDeer().getDirection()));
-        matrix[gameManager.getHunter().getCordinateY()][gameManager.getHunter().getCordinateX()].setImageResource(gameManager.getResourceToImage("cop",gameManager.getHunter().getDirection()));
-        matrix[gameManager.getCoin().getCordinateY()][gameManager.getCoin().getCordinateX()].setImageResource(gameManager.getResourceToImage("coin",gameManager.getCoin().getDirection()));
-        matrix[gameManager.getDeer().getCordinateY()][gameManager.getDeer().getCordinateX()].setVisibility(View.VISIBLE);
-        matrix[gameManager.getHunter().getCordinateY()][gameManager.getHunter().getCordinateX()].setVisibility(View.VISIBLE);
-        matrix[gameManager.getCoin().getCordinateY()][gameManager.getCoin().getCordinateX()].setVisibility(View.VISIBLE);
+        matrix[gameManager.getDeer().getCoordinateY()][gameManager.getDeer().getCoordinateX()].setImageResource(gameManager.getResourceToImage("miner",gameManager.getDeer().getDirection()));
+        matrix[gameManager.getHunter().getCoordinateY()][gameManager.getHunter().getCoordinateX()].setImageResource(gameManager.getResourceToImage("cop",gameManager.getHunter().getDirection()));
+        matrix[gameManager.getCoin().getCoordinateY()][gameManager.getCoin().getCoordinateX()].setImageResource(gameManager.getResourceToImage("coin",gameManager.getCoin().getDirection()));
+        matrix[gameManager.getDeer().getCoordinateY()][gameManager.getDeer().getCoordinateX()].setVisibility(View.VISIBLE);
+        matrix[gameManager.getHunter().getCoordinateY()][gameManager.getHunter().getCoordinateX()].setVisibility(View.VISIBLE);
+        matrix[gameManager.getCoin().getCoordinateY()][gameManager.getCoin().getCoordinateX()].setVisibility(View.VISIBLE);
     }
 
     private void updateUIHeart() {
@@ -223,7 +225,7 @@ public class GameActivity extends AppCompatActivity {
 
     public void moveCoinGameManager(){
         clearIndexCoinInMatrix();
-        gameManager.getMoveItems().moveCoin();
+        gameManager.getMoveItems().moveCoin(gameManager.getCoin());
     }
 
     public void updateScore() {

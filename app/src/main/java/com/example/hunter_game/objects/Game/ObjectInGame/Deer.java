@@ -8,10 +8,6 @@ import com.example.hunter_game.objects.enums.Directions;
  * The name remains deer but its represent MINER
  */
 public class Deer extends ItemInGame {
-    private Directions direction;
-    private int cordinateX,
-                cordinateY;
-
     public Deer(){
         setDirection(Directions.UP);
     };

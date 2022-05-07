@@ -4,27 +4,27 @@ import com.example.hunter_game.objects.enums.Directions;
 
 public abstract class ItemInGame {
     private Directions direction;
-    private int cordinateX,
-                cordinateY;
-    public int getCordinateX() {
-        return cordinateX;
+    private int coordinateX,
+                coordinateY;
+    public int getCoordinateX() {
+        return coordinateX;
     }
 
-    public int getCordinateY() {
-        return cordinateY;
+    public int getCoordinateY() {
+        return coordinateY;
     }
 
     public Directions getDirection() {
         return direction;
     }
 
-    public ItemInGame setCordinateX(int cordinateX) {
-        this.cordinateX = cordinateX;
+    public ItemInGame setCoordinateX(int coordinateX) {
+        this.coordinateX = coordinateX;
         return this;
     }
 
-    public ItemInGame setCordinateY(int cordinateY) {
-        this.cordinateY = cordinateY;
+    public ItemInGame setCoordinateY(int coordinateY) {
+        this.coordinateY = coordinateY;
         return this;
     }
 

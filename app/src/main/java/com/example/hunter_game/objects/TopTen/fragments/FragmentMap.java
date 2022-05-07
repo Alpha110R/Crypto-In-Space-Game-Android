@@ -21,11 +21,8 @@ public class FragmentMap extends Fragment {
     private MarkerOptions markerOptions;
     private SupportMapFragment supportMapFragment;
     private LatLng latLng;
-    private MyLocation myLocation;
 
-    public FragmentMap(MyLocation myLocation){
-        this.latLng = latLng;
-    }
+    public FragmentMap(){}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,6 +54,6 @@ public class FragmentMap extends Fragment {
     }
 
     public void zoomToMarker(LatLng latLng) {
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 8));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
     }
 }
