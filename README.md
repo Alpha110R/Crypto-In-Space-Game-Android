@@ -10,6 +10,10 @@ Link for more explanation about the game:
 
 https://youtu.be/5vrBNHqk640
 
+Generic overview class diagram of the application's code:
+
+![UML Diagram - Crypto In Space](https://user-images.githubusercontent.com/68230416/167258539-d75e7958-d639-4ccb-b0dd-3d40a5cf649d.jpg)
+
 Menu:
 
 ![menu](https://user-images.githubusercontent.com/68230416/167035899-722ea16e-8306-4921-a776-cdb0e87fdeda.png)
@@ -26,12 +30,3 @@ Game with sensors:
 Top Ten page:
 
 ![Top Ten after clicked](https://user-images.githubusercontent.com/68230416/167036493-4702670c-90b5-4859-bf1b-85d517aeaba4.png)
-
-
-Icons:
-
-![ic_miner_up](https://user-images.githubusercontent.com/68230416/167036555-381824cd-a2fa-4ebb-9353-b55c517a4739.png)
-![ic_cop_up](https://user-images.githubusercontent.com/68230416/167036570-5b8bfcb8-fb1a-4110-93c6-545f87236db5.png)
-![ic_coin_up](https://user-images.githubusercontent.com/68230416/167036589-1166cdb9-3f72-4e7f-9a74-2417e824137f.png)
-![ic_play](https://user-images.githubusercontent.com/68230416/167036616-07f26cd7-3e26-48c1-b9dc-0595a7ab066e.png)
-![ic_top_ten](https://user-images.githubusercontent.com/68230416/167036633-0c8cf7b8-e4ea-43f4-9d11-b7cb285abd85.png)
