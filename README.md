@@ -23,10 +23,6 @@ https://user-images.githubusercontent.com/68230416/167035040-064c8db6-6805-49dc-
 
 https://youtu.be/5vrBNHqk640
 
-# :headphones: Code overview:
-
-https://youtu.be/DkPdk53Q3UA
-
 # :book: Generic class diagram overview of the application's code:
 
 ![Crypto In Space - Class Diagram](https://user-images.githubusercontent.com/68230416/167261385-a239d7b3-7f39-420e-9310-7a5c25ccc731.jpg)
