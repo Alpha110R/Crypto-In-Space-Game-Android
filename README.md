@@ -25,7 +25,6 @@ https://youtu.be/5vrBNHqk640
 
 # :headphones: Detail code overview:
 
-https://youtu.be/Lf-gmvfiyhk
 
 # :book: Generic class diagram overview of the application's code:
 
