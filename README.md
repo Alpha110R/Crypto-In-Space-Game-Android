@@ -23,8 +23,9 @@ https://user-images.githubusercontent.com/68230416/167035040-064c8db6-6805-49dc-
 
 https://youtu.be/5vrBNHqk640
 
-# :headphones: Detail code overview:
+# :headphones: Code overview:
 
+https://youtu.be/DkPdk53Q3UA
 
 # :book: Generic class diagram overview of the application's code:
 
