@@ -43,8 +43,7 @@ public class GameActivity extends AppCompatActivity {
     private Bundle bundle;
     private String screenType;
     private boolean nextPage = false;
-    //TODO: In sensor mode, after lose the sensors don't respond (check how the activities close)
-    //TODO: Split this class
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

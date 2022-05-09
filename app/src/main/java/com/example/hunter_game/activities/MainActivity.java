@@ -55,8 +55,6 @@ public class MainActivity extends AppCompatActivity {
     private MyLocationManager myLocationManager;
     private int LOCATION_REQUEST_CODE = 10001;
 
-
-    //TODO: Make icon and put it above the text input
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

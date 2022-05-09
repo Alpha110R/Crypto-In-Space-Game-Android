@@ -69,7 +69,7 @@ public class GameMoveSensor{
             Log.d("", "onAccuracyChanged");
         }
     };
-    //TODO: try to activate and deactivate the sensor listener
+
     public void onResumeSensorManager() {
         sensorManager.registerListener(motionSensorEventListener, motionSensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
