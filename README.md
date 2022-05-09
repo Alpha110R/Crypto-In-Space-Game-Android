@@ -7,7 +7,7 @@
 - 1️⃣ OOP + SOLID
 - 2️⃣ Glide library
 - 3️⃣ Google Maps API + Gson
-- 4️⃣ CallBacks
+- 4️⃣ Fragments + CallBacks
 - 5️⃣ ListView + ArrayAdapter
 - 6️⃣ Shared Preferences
 - 7️⃣ Intent + Bundle
