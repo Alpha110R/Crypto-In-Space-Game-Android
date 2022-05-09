@@ -43,7 +43,6 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 
 public class MyLocationManager {
-    private GoogleMap mMap;
     private Activity activity;
     private Location theLocation;
     private int LOCATION_REQUEST_CODE = 10001;
@@ -60,28 +59,18 @@ public class MyLocationManager {
         }
     };
 
-    public MyLocationManager(Activity activity, FusedLocationProviderClient fusedLocationProviderClient, LocationRequest locationRequest){
+    public MyLocationManager(Activity activity){
         this.activity = activity;
-        this.fusedLocationProviderClient = fusedLocationProviderClient;
-        this.locationRequest = locationRequest;
+        this.fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activity);
+        this.locationRequest = LocationRequest.create();
+        this.locationRequest.setInterval(4000);
+        this.locationRequest.setFastestInterval(2000);
+        this.locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     }
     public Location getLocation(){
         return theLocation;
     }
 
-    public void askPermissionAndSetLocationPermission(GoogleMap googleMap) {
-        mMap = googleMap;
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(activity,
-                    Manifest.permission.ACCESS_FINE_LOCATION)
-                    == PackageManager.PERMISSION_GRANTED) {
-                mMap.setMyLocationEnabled(true);
-            }
-        }
-        else {
-            mMap.setMyLocationEnabled(true);
-        }
-    }
     public void checkSettingsAndStartLocationUpdates() {
         LocationSettingsRequest request = new LocationSettingsRequest.Builder()
                 .addLocationRequest(locationRequest).build();

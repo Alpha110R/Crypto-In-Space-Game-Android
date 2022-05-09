@@ -1,24 +1,23 @@
 package com.example.hunter_game.objects.Game;
 
-import com.example.hunter_game.objects.Game.ObjectInGame.ItemInGame;
 import com.example.hunter_game.objects.enums.Directions;
 
 import java.util.Random;
 
 public class MoveItems {
-    private ItemInGame deer, hunter;
+    private ItemInGame miner, cop;
     private int rows, columns;
 
     public MoveItems() {
     }
 
-    public MoveItems setDeer(ItemInGame deer) {
-        this.deer = deer;
+    public MoveItems setMiner(ItemInGame miner) {
+        this.miner = miner;
         return this;
     }
 
-    public MoveItems setHunter(ItemInGame hunter) {
-        this.hunter = hunter;
+    public MoveItems setCop(ItemInGame cop) {
+        this.cop = cop;
         return this;
     }
 
@@ -63,8 +62,8 @@ public class MoveItems {
     }
 
     public Boolean checkCollisionCoinBeforeMove(int x, int y) {
-        if ((x == deer.getCoordinateX() && y == deer.getCoordinateY()) ||
-                (x == hunter.getCoordinateX() && y == hunter.getCoordinateY()))
+        if ((x == miner.getCoordinateX() && y == miner.getCoordinateY()) ||
+                (x == cop.getCoordinateX() && y == cop.getCoordinateY()))
             return true;
         return false;
     }

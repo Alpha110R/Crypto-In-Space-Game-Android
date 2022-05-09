@@ -1,11 +1,12 @@
-package com.example.hunter_game.objects.Game.ObjectInGame;
+package com.example.hunter_game.objects.Game;
 
 import com.example.hunter_game.objects.enums.Directions;
 
-public abstract class ItemInGame {
+public class ItemInGame {
     private Directions direction;
     private int coordinateX,
                 coordinateY;
+    public  ItemInGame (){}
     public int getCoordinateX() {
         return coordinateX;
     }

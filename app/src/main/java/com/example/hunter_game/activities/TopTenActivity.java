@@ -46,7 +46,7 @@ INTENT:
 
         setIntentAndBundle();
         findViews();
-        new BackGround(this, topTen_IMG_backGround).setBackGround();
+        BackGround.setBackGround(this, topTen_IMG_backGround);
         MySignal.getMe().activateMusicAvengersTopTen();
 
         topTenListManager = new TopTenListManager(bundle);

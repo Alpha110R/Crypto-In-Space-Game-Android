@@ -53,10 +53,8 @@ public class MainActivity extends AppCompatActivity {
     private Bundle bundle;
     //Location
     private MyLocationManager myLocationManager;
-    private Location theLocation;
     private int LOCATION_REQUEST_CODE = 10001;
-    public FusedLocationProviderClient fusedLocationProviderClient;
-    public LocationRequest locationRequest;
+
 
     //TODO: Make icon and put it above the text input
     @Override
@@ -64,14 +62,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         findViews();
-        new BackGround(this, main_IMG_backGround).setBackGround();
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        locationRequest = LocationRequest.create();
-        locationRequest.setInterval(4000);
-        locationRequest.setFastestInterval(2000);
-        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        myLocationManager = new MyLocationManager(this, fusedLocationProviderClient, locationRequest);
-
+        BackGround.setBackGround(this, main_IMG_backGround);
+        myLocationManager = new MyLocationManager(this);
 
         initializeIntentBundleAndPlayerName();
 
@@ -200,15 +192,6 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
         myLocationManager.stopLocationUpdates();
     }
-
-    LocationCallback locationCallback = new LocationCallback() {
-        @Override
-        public void onLocationResult(LocationResult locationResult) {
-            if (locationResult == null) {
-                return;
-            }
-        }
-    };
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

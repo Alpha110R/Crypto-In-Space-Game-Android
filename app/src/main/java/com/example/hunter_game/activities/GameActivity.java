@@ -50,7 +50,7 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         findViews();
-        new BackGround(this, game_IMG_backGround).setBackGround();
+        BackGround.setBackGround(this, game_IMG_backGround);
 
         //Receive the data from main page and set the intent to the Top Ten page
         intent = getIntent();
@@ -148,9 +148,9 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void manageMove(){
-        if (gameManager.checkCollisionHunterDeer()) {
+        if (gameManager.checkCollision(gameManager.getMiner(), gameManager.getCop())) {
             gameManager.checkAndUpdateHighestScore();
-            if (gameManager.getLives() == 2) {
+            if (gameManager.getLives() == 1) {
                 gameTimer.stopTimer();
                 MySignal.getMe().vibrate();
                 bundle.putInt(KeysToSaveEnums.SCORE.toString(), gameManager.getHighestScore());
@@ -174,8 +174,9 @@ public class GameActivity extends AppCompatActivity {
             /**
              * Collision with coin
              */
-            if (gameManager.checkCollisionHunterCoin() || gameManager.checkCollisionDeerCoin()) {
-                if (gameManager.checkCollisionDeerCoin()) {
+            if (gameManager.checkCollision(gameManager.getCop(), gameManager.getCoin())
+                    || gameManager.checkCollision(gameManager.getMiner(), gameManager.getCoin())) {
+                if (gameManager.checkCollision(gameManager.getMiner(), gameManager.getCoin())) {
                     MySignal.getMe().vibrate();
                     gameManager.addToScore(10);
                     setScoreText(gameManager.getScore());
@@ -198,8 +199,8 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void clearIndexInMatrix(){
-        matrix[gameManager.getDeer().getCoordinateY()][gameManager.getDeer().getCoordinateX()].setVisibility(View.INVISIBLE);
-        matrix[gameManager.getHunter().getCoordinateY()][gameManager.getHunter().getCoordinateX()].setVisibility(View.INVISIBLE);
+        matrix[gameManager.getMiner().getCoordinateY()][gameManager.getMiner().getCoordinateX()].setVisibility(View.INVISIBLE);
+        matrix[gameManager.getCop().getCoordinateY()][gameManager.getCop().getCoordinateX()].setVisibility(View.INVISIBLE);
     }
 
     public void clearIndexCoinInMatrix(){
@@ -209,11 +210,11 @@ public class GameActivity extends AppCompatActivity {
     public void updateUIMatrix(){
         if(!newGameFlag)
             gameManager.move();
-        matrix[gameManager.getDeer().getCoordinateY()][gameManager.getDeer().getCoordinateX()].setImageResource(gameManager.getResourceToImage("miner",gameManager.getDeer().getDirection()));
-        matrix[gameManager.getHunter().getCoordinateY()][gameManager.getHunter().getCoordinateX()].setImageResource(gameManager.getResourceToImage("cop",gameManager.getHunter().getDirection()));
+        matrix[gameManager.getMiner().getCoordinateY()][gameManager.getMiner().getCoordinateX()].setImageResource(gameManager.getResourceToImage("miner",gameManager.getMiner().getDirection()));
+        matrix[gameManager.getCop().getCoordinateY()][gameManager.getCop().getCoordinateX()].setImageResource(gameManager.getResourceToImage("cop",gameManager.getCop().getDirection()));
         matrix[gameManager.getCoin().getCoordinateY()][gameManager.getCoin().getCoordinateX()].setImageResource(gameManager.getResourceToImage("coin",gameManager.getCoin().getDirection()));
-        matrix[gameManager.getDeer().getCoordinateY()][gameManager.getDeer().getCoordinateX()].setVisibility(View.VISIBLE);
-        matrix[gameManager.getHunter().getCoordinateY()][gameManager.getHunter().getCoordinateX()].setVisibility(View.VISIBLE);
+        matrix[gameManager.getMiner().getCoordinateY()][gameManager.getMiner().getCoordinateX()].setVisibility(View.VISIBLE);
+        matrix[gameManager.getCop().getCoordinateY()][gameManager.getCop().getCoordinateX()].setVisibility(View.VISIBLE);
         matrix[gameManager.getCoin().getCoordinateY()][gameManager.getCoin().getCoordinateX()].setVisibility(View.VISIBLE);
     }
 
@@ -260,14 +261,11 @@ public class GameActivity extends AppCompatActivity {
         super.onStop();
         GameMoveSensor.getMe().onPauseSensorManager();
         gameTimer.stopTimer();
-        Log.d("tagg", "STOP");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d("tagg", "SEDTROY STAGE FUNCTIUON");
-
     }
 
 }
