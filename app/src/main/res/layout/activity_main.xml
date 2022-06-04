@@ -61,44 +61,43 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="50dp">
+            android:layout_marginBottom="50dp"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/main_BTN_play"
                 android:layout_width="300dp"
                 android:layout_height="100dp"
+                android:layout_marginBottom="20dp"
                 android:backgroundTint="@android:color/transparent"
-                android:text="Play"
                 android:fontFamily="serif"
+                android:text="Play"
+                android:textColor="#F5F5F5"
                 android:textSize="60dp"
                 android:textStyle="bold"
-                android:textColor="#F5F5F5"
                 app:cornerRadius="20dp"
                 app:icon="@drawable/ic_play"
                 app:iconSize="70dp"
                 app:iconTint="@android:color/transparent"
-                app:iconTintMode="add"
-                android:layout_marginBottom="20dp"
-                />
+                app:iconTintMode="add" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/main_BTN_topTen"
                 android:layout_width="400dp"
                 android:layout_height="100dp"
                 android:backgroundTint="@android:color/transparent"
-                android:text="Top Ten"
-                android:textStyle="bold"
                 android:fontFamily="serif"
+                android:text="Top Ten"
                 android:textAlignment="textStart"
-                android:textSize="55dp"
                 android:textColor="#F5F5F5"
+                android:textSize="55dp"
+                android:textStyle="bold"
                 app:icon="@drawable/ic_top_ten"
                 app:iconSize="70dp"
                 app:iconTint="@android:color/transparent"
-                app:iconTintMode="add"/>
+                app:iconTintMode="add" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
