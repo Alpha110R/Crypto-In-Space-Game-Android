@@ -3,7 +3,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -17,7 +16,9 @@ import com.example.hunter_game.objects.enums.Directions;
 import com.example.hunter_game.objects.enums.KeysToSaveEnums;
 import com.example.hunter_game.objects.enums.TimerStatus;
 import com.example.hunter_game.utils.BackGround;
-import com.example.hunter_game.utils.MySignal;
+import com.example.hunter_game.utils.MySignal.MessagesToUser;
+import com.example.hunter_game.utils.MySignal.Music;
+import com.example.hunter_game.utils.MySignal.Vibrations;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 
@@ -42,7 +43,7 @@ public class GameActivity extends AppCompatActivity {
     private Intent intent;
     private Bundle bundle;
     private String screenType;
-    private boolean nextPage = false;
+    private GameMoveSensor gameMoveSensor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,17 +60,12 @@ public class GameActivity extends AppCompatActivity {
 
         //Check which mode to activate in the game -> SENSORS / BUTTONS
         if(screenType.equals(MainActivity.SENSORS)){
+            gameMoveSensor = new GameMoveSensor(this);
             makeButtonsInvisible();
-            GameMoveSensor.getMe().setCallBack_motionSensor(callBack_motionSensor);
-            GameMoveSensor.getMe().onResumeSensorManager();
+            gameMoveSensor.setCallBack_motionSensor(callBack_motionSensor);
         }
         else
             activateButtonsListeners();
-
-        //Set the timer for the game and send him the callback
-        gameTimer = new GameTimer(callBack_Timer);
-        gameTimer.start();
-
         gameManager = new GameManager(rows, columns, this);
     }
 
@@ -149,9 +145,9 @@ public class GameActivity extends AppCompatActivity {
     public void manageMove(){
         if (gameManager.checkCollision(gameManager.getMiner(), gameManager.getCop())) {
             gameManager.checkAndUpdateHighestScore();
-            if (gameManager.getLives() == 1) {
+            if (gameManager.getLives() == 3) {
                 gameTimer.stopTimer();
-                MySignal.getMe().vibrate();
+                Vibrations.getMe().vibrate();
                 bundle.putInt(KeysToSaveEnums.SCORE.toString(), gameManager.getHighestScore());
                 bundle.putString(KeysToSaveEnums.PAGE.toString(), KeysToSaveEnums.GAME_PAGE.toString());
                 intent.putExtra(KeysToSaveEnums.BUNDLE.toString(), bundle);
@@ -160,14 +156,15 @@ public class GameActivity extends AppCompatActivity {
                 return;
 
             } else {
-                MySignal.getMe().startCollisionMusic();
+                Vibrations.getMe().vibrate();
+                Music.getMe().startCollisionMusic();
                 newGameFlag = true;//There was collision
                 clearIndexInMatrix();//Needs to clean before I set the positions
                 gameManager.restartGamePositions();
                 gameManager.reduceLives();
                 gameManager.restartScore();
                 updateUINewGame();
-                MySignal.getMe().makeToastMessage("You only have " + gameManager.getLives() + " more times to play");
+                MessagesToUser.getMe().makeToastMessage("You only have " + gameManager.getLives() + " more times to play");
             }
         } else {
             /**
@@ -176,7 +173,7 @@ public class GameActivity extends AppCompatActivity {
             if (gameManager.checkCollision(gameManager.getCop(), gameManager.getCoin())
                     || gameManager.checkCollision(gameManager.getMiner(), gameManager.getCoin())) {
                 if (gameManager.checkCollision(gameManager.getMiner(), gameManager.getCoin())) {
-                    MySignal.getMe().vibrate();
+                    Vibrations.getMe().vibrate();
                     gameManager.addToScore(10);
                     setScoreText(gameManager.getScore());
                 }
@@ -239,6 +236,10 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        //Set the timer for the game and send him the callback
+        gameTimer = new GameTimer(callBack_Timer);
+        gameTimer.start();
+        gameMoveSensor.onResumeSensorManager();
     }
 
     @Override
@@ -258,7 +259,7 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        GameMoveSensor.getMe().onPauseSensorManager();
+        gameMoveSensor.onPauseSensorManager();
         gameTimer.stopTimer();
     }
 

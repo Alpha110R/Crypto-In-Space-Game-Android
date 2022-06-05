@@ -4,8 +4,6 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Location;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.widget.ImageView;
 
@@ -14,17 +12,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.example.hunter_game.R;
+import com.example.hunter_game.utils.MySignal.MessagesToUser;
+import com.example.hunter_game.utils.MySignal.Music;
 import com.example.hunter_game.utils.MyLocationManager;
 import com.example.hunter_game.objects.TopTen.User;
 import com.example.hunter_game.objects.enums.KeysToSaveEnums;
 import com.example.hunter_game.utils.BackGround;
 import com.example.hunter_game.utils.MySharedPreferences;
-import com.example.hunter_game.utils.MySignal;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
@@ -70,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
          */
         main_BTN_play.setOnClickListener(view -> {
             if(!validatePlayerName(main_EDT_playerName.getText().toString())){//Checks the user name before starting the game
-                MySignal.getMe().makeToastMessage("Not Valid Name. Use: A-Z / a-z / -");
+                MessagesToUser.getMe().makeToastMessage("Not Valid Name. Use: A-Z / a-z / -");
             }
             else {
                 moveToPageWithBundle(GameActivity.class);
@@ -108,9 +102,9 @@ public class MainActivity extends AppCompatActivity {
     public void moveToTopTenPage(){
         TypeToken token = new TypeToken<ArrayList<User>>() {};
         if(MySharedPreferences.getMe().getArray(KeysToSaveEnums.LIST_USERS.toString(), token).size() == 0)
-            MySignal.getMe().makeToastMessage("You are the first player, lets set the bar!");
+            MessagesToUser.getMe().makeToastMessage("You are the first player, lets set the bar!");
         else{
-            MySignal.getMe().pauseMusicSpongebobWelcome();
+            Music.getMe().pauseMusicSpongebobWelcome();
             moveToPageWithBundle(TopTenActivity.class);
             bundle.putString(KeysToSaveEnums.PAGE.toString(), KeysToSaveEnums.MAIN_PAGE.toString());
             intent.putExtra(KeysToSaveEnums.BUNDLE.toString(), bundle);
@@ -170,7 +164,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        MySignal.getMe().activateMusicSpongebobWelcome();
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             myLocationManager.getLastLocation();
             myLocationManager.checkSettingsAndStartLocationUpdates();
@@ -180,9 +173,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume(){
+        super.onResume();
+        Music.getMe().activateMusicSpongebobWelcome();
+    }
+
+    @Override
     protected void onPause(){
         super.onPause();
-        MySignal.getMe().pauseMusicSpongebobWelcome();
+        Music.getMe().pauseMusicSpongebobWelcome();
     }
 
     @Override

@@ -1,8 +1,5 @@
 package com.example.hunter_game.objects.TopTen;
 
-import com.example.hunter_game.utils.MySignal;
-import com.google.android.gms.maps.model.LatLng;
-
 public class User {
     private String name,
                    date;

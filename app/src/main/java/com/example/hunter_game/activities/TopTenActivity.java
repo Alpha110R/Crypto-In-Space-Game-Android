@@ -2,22 +2,20 @@ package com.example.hunter_game.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.hunter_game.CallBacks.CallBack_ListUsers;
-import com.example.hunter_game.objects.Game.GameMoveSensor;
 import com.example.hunter_game.objects.TopTen.fragments.FragmentMap;
 import com.example.hunter_game.R;
 import com.example.hunter_game.objects.TopTen.fragments.Fragment_TTList;
 import com.example.hunter_game.objects.TopTen.TopTenListManager;
 import com.example.hunter_game.objects.enums.KeysToSaveEnums;
 import com.example.hunter_game.utils.BackGround;
-import com.example.hunter_game.utils.MySharedPreferences;
-import com.example.hunter_game.utils.MySignal;
+import com.example.hunter_game.utils.MySignal.MessagesToUser;
+import com.example.hunter_game.utils.MySignal.Music;
 import com.google.android.material.button.MaterialButton;
 
 public class TopTenActivity extends AppCompatActivity{
@@ -47,7 +45,7 @@ INTENT:
         setIntentAndBundle();
         findViews();
         BackGround.setBackGround(this, topTen_IMG_backGround);
-        MySignal.getMe().activateMusicAvengersTopTen();
+        Music.getMe().activateMusicAvengersTopTen();
 
         topTenListManager = new TopTenListManager(bundle);
 
@@ -128,10 +126,10 @@ INTENT:
         if(topTenListManager.getUser().getScore() > 0) {//If the player arrived from the menu to see the list he has 0 score
             if (topTenListManager.checkIfEnterTopTenList()){
                 topTenListManager.updateList();//If the player succeeded to enter to the TOP TEN list
-                MySignal.getMe().makeToastMessage("You entered to Top Ten List!");
+                MessagesToUser.getMe().makeToastMessage("You entered to Top Ten List!");
             }
             else
-                MySignal.getMe().makeToastMessage("You didn't made it to TOP TEN");
+                MessagesToUser.getMe().makeToastMessage("You didn't made it to TOP TEN");
         }
     }
 
@@ -145,7 +143,7 @@ INTENT:
     protected void onPause() {
         super.onPause();
         topTenListManager.saveTopTenListUsersToSP();
-        MySignal.getMe().pauseMusicAvengersTopTen();
+        Music.getMe().pauseMusicAvengersTopTen();
     }
 
     @Override
