@@ -20,7 +20,7 @@ public class MySharedPreferences {
 
 
     private MySharedPreferences(Context context) {
-        prefs = context.getApplicationContext().getSharedPreferences(SP_FILE_NAME, Context.MODE_PRIVATE);
+        prefs = context.getApplicationContext().getSharedPreferences(SP_FILE_NAME, Context.MODE_PRIVATE);//If doesn't work -> switch Context to context.
     }
 
     public static void initHelper(Context context) {

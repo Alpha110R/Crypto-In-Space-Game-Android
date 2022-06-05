@@ -239,7 +239,8 @@ public class GameActivity extends AppCompatActivity {
         //Set the timer for the game and send him the callback
         gameTimer = new GameTimer(callBack_Timer);
         gameTimer.start();
-        gameMoveSensor.onResumeSensorManager();
+        if(gameMoveSensor != null)
+            gameMoveSensor.onResumeSensorManager();
     }
 
     @Override
@@ -259,7 +260,8 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        gameMoveSensor.onPauseSensorManager();
+        if(gameMoveSensor != null)
+            gameMoveSensor.onPauseSensorManager();
         gameTimer.stopTimer();
     }
 
