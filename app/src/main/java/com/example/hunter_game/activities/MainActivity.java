@@ -1,8 +1,10 @@
 package com.example.hunter_game.activities;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -12,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.example.hunter_game.R;
+import com.example.hunter_game.utils.DataManager;
 import com.example.hunter_game.utils.MySignal.MessagesToUser;
 import com.example.hunter_game.utils.MySignal.Music;
 import com.example.hunter_game.utils.MyLocationManager;
@@ -56,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
         findViews();
         BackGround.setBackGround(this, main_IMG_backGround);
         myLocationManager = new MyLocationManager(this);
-
         initializeIntentBundleAndPlayerName();
 
         /**
@@ -100,8 +102,7 @@ public class MainActivity extends AppCompatActivity {
      * If there isn't -> there is nothing to see
      */
     public void moveToTopTenPage(){
-        TypeToken token = new TypeToken<ArrayList<User>>() {};
-        if(MySharedPreferences.getMe().getArray(KeysToSaveEnums.LIST_USERS.toString(), token).size() == 0)
+        if(DataManager.getMe().getListOfUsers().size() == 0)
             MessagesToUser.getMe().makeToastMessage("You are the first player, lets set the bar!");
         else{
             Music.getMe().pauseMusicSpongebobWelcome();

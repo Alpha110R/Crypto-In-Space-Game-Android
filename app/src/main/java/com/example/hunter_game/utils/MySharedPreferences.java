@@ -11,19 +11,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class MySharedPreferences {
+public abstract class MySharedPreferences {
 
     private final String SP_FILE_NAME = "MY_SP_FILE";
-    private SharedPreferences prefs = null;
+    private SharedPreferences prefs = null;//Don't want to make this variable static to avoid memory leaks, static variables can stack classes in the memory.To clear static variable you need to specifically turn it to null
 
-    private static MySharedPreferences me;
+    //private static MySharedPreferences me;
 
-
-    private MySharedPreferences(Context context) {
-        prefs = context.getApplicationContext().getSharedPreferences(SP_FILE_NAME, Context.MODE_PRIVATE);//If doesn't work -> switch Context to context.
+    public MySharedPreferences(Context context) {
+        prefs = context.getSharedPreferences(SP_FILE_NAME, Context.MODE_PRIVATE);//If doesn't work -> switch Context to context.
     }
 
-    public static void initHelper(Context context) {
+    /*public static void initHelper(Context context) {
         if (me == null) {
             me = new MySharedPreferences(context);
         }
@@ -31,7 +30,7 @@ public class MySharedPreferences {
 
     public static MySharedPreferences getMe() {
         return me;
-    }
+    }*/
 
 
     public void removeKey(String key){

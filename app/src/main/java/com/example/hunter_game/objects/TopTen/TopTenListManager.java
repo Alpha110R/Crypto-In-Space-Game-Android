@@ -1,13 +1,12 @@
 package com.example.hunter_game.objects.TopTen;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
-
 import com.example.hunter_game.objects.enums.KeysToSaveEnums;
+import com.example.hunter_game.utils.DataManager;
 import com.example.hunter_game.utils.MySharedPreferences;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.reflect.TypeToken;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,7 +33,6 @@ public class TopTenListManager {
     public TopTenListManager(){}
     public TopTenListManager(Bundle bundle){
         setBundle(bundle);
-
         setTopTenListUsersFromSp();
 
         //Creates the current user that played the game
@@ -47,11 +45,10 @@ public class TopTenListManager {
     }
 
     public void saveTopTenListUsersToSP(){
-        if(MySharedPreferences.getMe().contain(KeysToSaveEnums.LIST_USERS.toString()))
-            MySharedPreferences.getMe().clear(); //Clean the memory before upload
+        if(DataManager.getMe().checksIfThereIsListOfUsers())
+            DataManager.getMe().clear(); //Clean the memory before upload
 
-        MySharedPreferences.getMe().putArray(KeysToSaveEnums.LIST_USERS.toString(), listUsers);
-
+        DataManager.getMe().saveListOfUsers(listUsers);
     }
 
     /**
@@ -92,9 +89,8 @@ public class TopTenListManager {
      @return VOID
      */
     private void setTopTenListUsersFromSp(){
-        if(MySharedPreferences.getMe().contain(KeysToSaveEnums.LIST_USERS.toString())) {
-            TypeToken token = new TypeToken<ArrayList<User>>() {};
-            this.listUsers = MySharedPreferences.getMe().getArray(KeysToSaveEnums.LIST_USERS.toString(), token);
+        if(DataManager.getMe().checksIfThereIsListOfUsers()) {
+            this.listUsers = DataManager.getMe().getListOfUsers();
         }
         else
             this.listUsers = new ArrayList<>();
