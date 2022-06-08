@@ -25,7 +25,7 @@ https://youtu.be/5vrBNHqk640
 
 # :book: Generic class diagram overview of the application's code:
 
-![Crypto In Space Class Diagram](https://user-images.githubusercontent.com/68230416/167376285-8552c585-e004-4221-84e0-c0e0233ba1cf.jpg)
+![Crypto In Space](https://user-images.githubusercontent.com/68230416/172632017-4561548b-d017-42ad-97d8-7fc9332d3c08.jpg)
 
 # Menu:
 
